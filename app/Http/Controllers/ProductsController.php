@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 use App\Product;
 
 
@@ -16,6 +18,8 @@ class ProductsController extends Controller
     public function index()
     {
         //
+        $products =  Product::orderBy('created_at', 'desc')->paginate(0);
+        return view('products.index')->with('products', $products);
     }
 
     /**
@@ -25,7 +29,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -37,6 +41,22 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        //Create Post(post product)
+        $product = new Product;
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = (88.00);
+        $product->condition = ('new');
+        $product->product_image = ('product image');
+
+        $product->save();
+
+        return redirect('/products')->with('success', 'Product Posted');
     }
 
     /**
@@ -48,6 +68,8 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
+        $product = Product::find($id);
+        return view('products.show')->with('product', $product);
     }
 
     /**
