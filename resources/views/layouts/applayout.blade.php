@@ -12,7 +12,7 @@
         <hr>
         <hr>
         <hr>
-        <div class="container">
+        <div class="text-center">
             @yield('content')
         </div>
     </body>
