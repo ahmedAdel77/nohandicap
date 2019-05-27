@@ -1,5 +1,7 @@
 
 window._ = require('lodash');
+require('materialize-sass');
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12,6 +14,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('materialize-css');
 } catch (e) {}
 
 /**

@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@index');
+Route::get('/', 'ProductsController@index');
 
 Route::resource('products', 'ProductsController');
+Route::resource('categories', 'CategoriesController');
+Route::resource('conditions', 'ConditionsController');
 
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');

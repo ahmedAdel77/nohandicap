@@ -33751,6 +33751,17 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/materialize-css/sass/materialize.scss":
+/*!************************************************************!*\
+  !*** ./node_modules/materialize-css/sass/materialize.scss ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -49192,19 +49203,20 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):\n\r\nundefined\r\n       ^\r\n      Can't find stylesheet to import.\n  ╷\n9 │ @import '~bootstrap/scss/bootstrap';\n  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n  stdin 9:9  root stylesheet\r\n      in C:\\xampp\\htdocs\\nohandicap\\resources\\sass\\app.scss (line 9, column 9)\n    at runLoaders (C:\\xampp\\htdocs\\nohandicap\\node_modules\\webpack\\lib\\NormalModule.js:301:20)\n    at C:\\xampp\\htdocs\\nohandicap\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\xampp\\htdocs\\nohandicap\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\xampp\\htdocs\\nohandicap\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass-loader\\lib\\loader.js:52:13)\n    at Function.$2 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:24366:48)\n    at wN.$2 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:15294:15)\n    at uS.vr (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9034:42)\n    at uS.vq (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9036:32)\n    at iy.uD (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8384:46)\n    at ur.$0 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8526:7)\n    at Object.eG (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8447:3)\n    at iM.ba (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8377:25)\n    at iM.cv (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8364:6)\n    at px.cv (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8154:35)\n    at Object.m (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:1383:19)\n    at C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:5066:51\n    at xd.a (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:1394:71)\n    at xd.$2 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8169:23)\n    at vQ.$2 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8164:25)\n    at uS.vr (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9034:42)\n    at uS.vq (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9036:32)\n    at iy.uD (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8384:46)\n    at ur.$0 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8526:7)\n    at Object.eG (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8447:3)\n    at iM.ba (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8377:25)\n    at iM.cv (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8364:6)\n    at Object.eval (eval at CI (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:648:15), <anonymous>:3:37)\n    at uS.vr (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9034:42)\n    at uS.vq (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:9036:32)\n    at iy.uD (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8384:46)\n    at ur.$0 (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8526:7)\n    at Object.eG (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\nohandicap\\node_modules\\sass\\sass.dart.js:8447:3)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./node_modules/materialize-css/sass/materialize.scss ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\nohandicap\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\nohandicap\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\nohandicap\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\nohandicap\node_modules\materialize-css\sass\materialize.scss */"./node_modules/materialize-css/sass/materialize.scss");
 
 
 /***/ })

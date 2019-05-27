@@ -6,10 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Product;
-
+use App\Category;
+use App\Condition;
 
 class ProductsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +29,7 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        $products =  Product::orderBy('created_at', 'desc')->paginate(0);
+        $products =  Product::orderBy('created_at', 'desc')->paginate(10);
         return view('products.index')->with('products', $products);
     }
 
@@ -41,18 +52,39 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'price' => 'required',
+            'cover_image' => 'required|image|max:1999'
         ]);
+
+        //Handel file upload
+        if($request->hasFile('cover_image')){
+            // Get filename with extension
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // Get just extension
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            // Upload image
+            $path = $request->file('cover_image')->storeAs('Public/cover_images', $fileNameToStore);
+
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
 
         //Create Post(post product)
         $product = new Product;
         $product->name = $request->input('name');
         $product->description = $request->input('description');
-        $product->price = (88.00);
+        $product->price = $request->input('price');
         $product->condition = ('new');
         $product->product_image = ('product image');
+        $product->cover_image = $fileNameToStore;
+        $product->user_id = auth()->user()->id;
 
         $product->save();
 
@@ -81,6 +113,15 @@ class ProductsController extends Controller
     public function edit($id)
     {
         //
+        $product = Product::find($id);
+
+        // check for correct user
+        if(auth()->user()->id !== $product->user_id){
+            return redirect('/products')->with('error', 'Unauthorized page');
+
+        }
+
+        return view('products.edit')->with('product', $product);
     }
 
     /**
@@ -93,6 +134,42 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        //Handel file upload
+        if($request->hasFile('cover_image')){
+            // Get filename with extension
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // Get just extension
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            // Upload image
+            $path = $request->file('cover_image')->storeAs('Public/cover_images', $fileNameToStore);
+
+        }
+
+        //Create Post(post product)
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->condition = ('new');
+        $product->product_image = ('product image');
+        if($request->hasFile('cover_image')){
+            Storage::delete('public/cover_images/' . $product->cover_image);
+            $product->cover_image = $fileNameToStore;
+        }
+
+        $product->save();
+
+        return redirect('/products')->with('success', 'Product Updated');
+
     }
 
     /**
@@ -104,5 +181,21 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::find($id);
+
+        // check for correct user
+        if(auth()->user()->id !== $product->user_id){
+            return redirect('/products')->with('error', 'Unauthorized page');
+
+        }
+
+        if($product->cover_image != 'noimage.jpg'){
+            //Delete image
+            Storage::delete('public/cover_images/'.$product->cover_image);
+        }
+
+        $product->delete();
+        return redirect('/products')->with('success', 'Product Removed');
+
     }
 }

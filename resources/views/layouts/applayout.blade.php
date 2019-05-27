@@ -9,10 +9,8 @@
 
     <body>
         @include('inc.navbar')
-        <hr>
-        <hr>
-        <hr>
-        <div class="container text-center">
+
+        <div class="container">
             @include('inc.messages')
             @yield('content')
         </div>
