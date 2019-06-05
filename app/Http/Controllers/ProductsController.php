@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Product;
 use App\Category;
 use App\Condition;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\App;
 
 class ProductsController extends Controller
 {
@@ -29,8 +31,43 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        $products =  Product::orderBy('created_at', 'desc')->paginate(10);
-        return view('products.index')->with('products', $products);
+        $products =  Product::orderBy('created_at', 'desc')->paginate(6)->onEachSide(2);
+
+        // $products = Product::where('category', 'Visual Impairment (VI)')->paginate(6)->onEachSide(2);
+
+
+        // if ($request->filled('category')) {
+        //     $products->where('category');
+        // }
+
+        if ($category = request('category')) {
+
+            $products->where('category', $category);
+        }
+
+        // $products = $products->get();
+
+
+        $filters = Product::selectRaw('category, count(*) exist')
+        ->groupBy('category')
+        ->orderByRaw('name asc')
+        ->get()->toArray();
+
+        return view('products.index',compact('products', 'filters'));
+    }
+
+    public function filter(Request $request)
+    {
+
+        $product = Product::all();
+        $product->category = $request->input('category');
+
+        $products = Product::where('category', $product->category)->paginate(6)->onEachSide(2);
+
+
+
+
+        return view('products.index',compact('products'));
     }
 
     /**
@@ -55,9 +92,14 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'condition' => 'required',
             'price' => 'required',
-            'cover_image' => 'required|image|max:1999'
+            'cover_image' => 'required|image|max:1999|mimes:jpeg,png,jpg,gif,svg',
+            'product_image' => 'required',
+            'product_image.*' => 'image|max:1999|mimes:jpeg,png,jpg,gif,svg',
+
         ]);
+
 
         //Handel file upload
         if($request->hasFile('cover_image')){
@@ -76,15 +118,32 @@ class ProductsController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
+
+        if ($request->hasFile('product_image')) {
+
+            foreach ($request->file('product_image') as $image) {
+                $name = $image->getClientOriginalName();
+                // $image->move('Public/product_images', $name);
+                $image->storePubliclyAs('public/product_images/',$name);
+                // $path2 = $request->file('product_image')->storeAs('Public/product_images', $name);
+
+                $data[] = $name;
+            }
+        }
+
+
         //Create Post(post product)
         $product = new Product;
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
-        $product->condition = ('new');
-        $product->product_image = ('product image');
+        $product->condition = $request->input('condition');
+        $product->category = $request->input('category');
         $product->cover_image = $fileNameToStore;
         $product->user_id = auth()->user()->id;
+
+        $product->product_image=json_encode($data);
+
 
         $product->save();
 
@@ -97,11 +156,16 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
         //
-        $product = Product::find($id);
-        return view('products.show')->with('product', $product);
+        // $product = Product::find($id);
+
+        views($product)->record();
+
+        // return view('products.show')->with('product', $product);
+        return view('products.show', compact('product'));
+
     }
 
     /**
@@ -121,6 +185,13 @@ class ProductsController extends Controller
 
         }
 
+        // $str = '';
+        // foreach ($product->product_image as $di ) {
+        //     $str += $di.','.'';
+        // }
+
+        // $product->product_image = $str;
+
         return view('products.edit')->with('product', $product);
     }
 
@@ -136,7 +207,12 @@ class ProductsController extends Controller
         //
         $this->validate($request, [
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'condition' => 'required',
+            'price' => 'required',
+            'cover_image' => 'required|image|max:1999|mimes:jpeg,png,jpg,gif,svg',
+            'product_image' => 'required',
+            'product_image.*' => 'image|max:1999|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         //Handel file upload
@@ -154,21 +230,36 @@ class ProductsController extends Controller
 
         }
 
+        if ($request->hasFile('product_image')) {
+
+            foreach ($request->file('product_image') as $image) {
+                $name = $image->getClientOriginalName();
+                // $image->move('Public/product_images', $name);
+                $image->storePubliclyAs('public/product_images/',$name);
+                // $path2 = $request->file('product_image')->storeAs('Public/product_images', $name);
+
+                $data[] = $name;
+            }
+        }
+
         //Create Post(post product)
         $product = Product::find($id);
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
-        $product->condition = ('new');
-        $product->product_image = ('product image');
+        $product->condition = $request->input('condition');
+        $product->category = $request->input('category');
         if($request->hasFile('cover_image')){
             Storage::delete('public/cover_images/' . $product->cover_image);
             $product->cover_image = $fileNameToStore;
         }
 
+        $product->product_image=json_encode($data);
+
         $product->save();
 
         return redirect('/products')->with('success', 'Product Updated');
+        // return back();
 
     }
 
@@ -198,4 +289,5 @@ class ProductsController extends Controller
         return redirect('/products')->with('success', 'Product Removed');
 
     }
+
 }

@@ -14,20 +14,20 @@
         </div>
 
         <div class="input-field">
-            <select name="" id="">
+            <select name="category" id="">
                 <option value="" disabled selected>Choose your category</option>
-                <option value="1">Mobility</option>
-                <option value="2">Hearing Impairment (HI)</option>
-                <option value="3">Visual Impairment (VI)</option>
+                <option value="Mobility">Mobility</option>
+                <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
             </select>
             <label for="">Category</label>
         </div>
 
         <div class="input-field">
-            <select name="" id="">
+            <select name="condition" id="">
                 <option value="" disabled selected>Choose product condition</option>
-                <option value="1">New</option>
-                <option value="2">Used</option>
+                <option value="New">New</option>
+                <option value="Used">Used</option>
             </select>
             <label for="">Condition</label>
         </div>
@@ -39,12 +39,23 @@
 
         <div class="file-field input-field">
             <div class="btn white black-text">
-                <span>Photo</span>
-                <i class="material-icons left">photo_library</i>
+                <span>Cover Image</span>
+                <i class="material-icons left">insert_photo</i>
                 <input type="file" name="cover_image">
             </div>
             <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload file" name="cover_image">
+                <input class="file-path validate" type="text" placeholder="Upload Cover Image" name="cover_image">
+            </div>
+        </div>
+
+        <div class="file-field input-field increment">
+            <div class="btn white black-text">
+                <span>Product Photos</span>
+                <i class="material-icons left">photo_library</i>
+                <input type="file" name="product_image[]" multiple>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload 1 or more Product Photos" name="product_image[]">
             </div>
         </div>
 

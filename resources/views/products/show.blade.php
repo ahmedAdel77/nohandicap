@@ -15,26 +15,42 @@
 
             <div class="row">
                 <div class="col l6">
-                    <h3 class="">{{ $product->name }}</h3>
+                    <h3 class="" style="">{{ $product->name }}</h3>
 
                 </div>
                 <div class="col l6 right-align">
-                    <h5 class="" style="font-weight: 500; font-size: 30px;">{{ $product->price }} EGP</h5>
+                    <h5 class="price" style="font-weight: 500; font-size: 30px;">{{ $product->price }} EGP</h5>
 
                 </div>
                 <div class="col l6">
-                    <p class="right-align">Posted at {{ $product->created_at }} by {{ $product->user->name }}</p>
+                        {{-- diffForHumans()
+                        toFormattedDateString() --}}
+
+                    <p class="right-align">Posted {{ $product->created_at->diffForHumans() }}</p>
 
                 </div>
             </div>
 
-            <div class="slider ">
+            {{-- <div class="z-depth-1">
                 <ul class="slides">
                     <li>
                         <img src="/storage/cover_images/{{ $product->cover_image }}" style="width:100%" class="materialboxed">
                     </li>
                 </ul>
-            </div>
+            </div> --}}
+
+            <div class="slider ">
+                    <ul class="slides z-depth-1">
+                            <li>
+                                <img src="/storage/cover_images/{{ $product->cover_image }}" style="width:100%" class="materialboxed">
+                            </li>
+                        @foreach (json_decode($product->product_image, true) as $image)
+                        <li>
+                                <img src="/public/product_images/{{ $image }}" style="width:100%; height: 100%; " class="materialboxed">
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
 
             <div class="row section">
                 <div class="col l6">
@@ -72,6 +88,10 @@
                             </button>
 
                         </form>
+{{--
+                        @if (Auth()->user()->isAdmin == 1)
+                            <h1>Admin</h1>
+                        @endif --}}
 
 
                 </div>
@@ -79,57 +99,87 @@
                 @endif
 
             @endif
+{{-- @guest --}}
 
-            <div class="section">
-            <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header"><i class="material-icons red-text text-darken-2">report_problem</i>Report</div>
-                  <div class="collapsible-body">
-                    <span>
-                            <form action="#">
-                                    <p>
-                                        <label>
-                                            <input name="group1" type="radio" class="with-gap" checked>
-                                            <span>This is illegal/fraudulent</span>
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <label>
-                                            <input name="group1" type="radio" class="with-gap">
-                                            <span>This ad is spam</span>
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <label>
-                                            <input name="group1" type="radio" class="with-gap">
-                                            <span>This ad is a duplicate</span>
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <label>
-                                            <input name="group1" type="radio" class="with-gap">
-                                            <span>This ad is in the wrong category</span>
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <label>
-                                            <input name="group1" type="radio" class="with-gap">
-                                            <span>The ad goes against <a href="#">posting rules</a> </span>
-                                        </label>
-                                    </p>
+            <div class="section container">
+{{--
+                    <a href="#report" class="btn red darken-2 modal-trigger waves-effect">
+                            <span>report</span>
+                            <i class="material-icons left">report_problem</i>
+                        </a>
+
+                        <div class="modal section" id="report">
+                            <div class="modal-content">
+                                <form action="#">
+                                        <div class="input-field section">
+                                                <select name="reason" id="">
+                                                    <option value="" disabled selected>Choose reason of report</option>
+                                                    <option value="This is illegal/fraudulent">This is illegal/fraudulent</option>
+                                                    <option value="This Ad is spam">This Ad is spam</option>
+                                                    <option value="This Ad is a duplicate">This Ad is a duplicate</option>
+                                                    <option value="This Ad is in the wrong category">This Ad is in the wrong category</option>
+                                                    <option value="The Ad goes against posting rules">The Ad goes against <a href="#">posting rules</a></option>
+                                                </select>
+                                                <label for="">Category</label>
+                                            </div>
 
                                     <div class="input-field">
                                         <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
                                         <label for="textarea">More information</label>
                                     </div>
                                 </form>
+
+                            </div>
+                            <div class="modal-footer">
                                 <a href="" class="btn modal-close red darken-3 waves-effect waves-dark">Send report</a>
+                            </div>
+                        </div>
+
+ --}}
+
+            <ul class="collapsible">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons red-text text-darken-3">report_problem</i>Report</div>
+                  <div class="collapsible-body">
+                    <span>
+                            <form action="{{ route('reports.store'), $product->id}}" method="POST">
+                            @csrf
+
+                                <div class="input-field">
+                                    <select name="reason" id="">
+                                        <option value="" disabled selected>Choose reason of report</option>
+                                        <option value="This is illegal/fraudulent">This is illegal/fraudulent</option>
+                                        <option value="This Ad is spam">This Ad is spam</option>
+                                        <option value="This Ad is a duplicate">This Ad is a duplicate</option>
+                                        <option value="This Ad is in the wrong category">This Ad is in the wrong category</option>
+                                        <option value="The Ad goes against posting rules">The Ad goes against <a href="#">posting rules</a></option>
+                                    </select>
+                                    <label for="">Category</label>
+                                </div>
+
+                                    <div class="input-field">
+                                        <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
+                                        <label for="textarea">More information</label>
+                                    </div>
+
+                                    <button  type="submit" class="btn red darken-2 waves-effect waves-dark">
+                                        <span>Send report</span>
+                                        <i class="material-icons left">send</i>
+                                    </button>
+
+                                </form>
 
                     </span></div>
                 </li>
             </ul>
         </div>
-        <p>Views: <span style="font-weight: 500;">51</span></p>
+{{-- @endguest --}}
+
+        <div class="row section">
+        <div class="col l2 ">
+                <p>Views: <span  style="font-weight: 500; border-right: 1px solid lightgray; padding-right: 10px">{{ views($product)->count() }}</span></p>
+        </div>
+    </div>
 
 
         <!-- contact seller -->

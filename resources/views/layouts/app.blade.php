@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} | Classified Ads for assistive tools</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -36,12 +36,27 @@
     font-size: 25px;
     color: #5cb74c;
 }
+.card-image{
+    height: 250px; /* Your height here */
+    overflow: hidden;
+}
 
 .safe{
     background-color: ghostwhite;
     box-shadow:  .5px .5px 3px 1px #5cb74c;
 
     margin-bottom: 30px;
+}
+
+.imagein{
+
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 
 .section {
@@ -55,7 +70,7 @@
 }
 
 .infostyle {
-    border-bottom: 1px solid #d8d6d9;
+    border-bottom: 1px solid lightgray;
     padding-bottom: 10px;
 }
 
@@ -66,7 +81,21 @@
 .tabs .tab a:focus,
 .tabs .tab a:focus.active {
     background: transparent;
-}</style>
+}
+
+
+/* header, main, footer {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    } */
+
+
+</style>
 
 
 </head>
@@ -88,11 +117,16 @@
 
  <!-- Compiled and minified JQuery & JavaScript -->
  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
  {{-- <script src="js/materialize.js"></script> --}}
  <script src="{{ asset('js/materialize.js') }}" defer></script>
  <script>
+
    $(document).ready(function () {
+
+
+
      $('.sidenav').sidenav();
      $('.tabs').tabs();
      $('.dropdown-trigger').dropdown();
@@ -102,11 +136,30 @@
      $('.modal').modal();
      $('input#input_text, textarea#textarea2').characterCounter();
      $('.collapsible').collapsible();
-   });
+     $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
 
-   $(".delete").on("submit", function(){
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+      $(".delete").on("submit", function(){
         return confirm("Do you want to delete this item?");
     });
+
+    $('.filter-select').change(function(){
+        table.column( $(this).data('column') )
+        .search( $(this).val() )
+        .draw();
+    });
+
+   });
+
+
+
+
  </script>
 
 </body>

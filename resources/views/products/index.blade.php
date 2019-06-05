@@ -1,23 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+
     <h1>Products</h1>
+
+    <div class="container section">
+        @include('inc.filter')
+    </div>
+
     <div class="row section">
-    @if (count($products) > 0)
+
+    @if (count($products))
         @foreach ($products as $product)
 
-            <div class="col s12 m6 l4">
+            <div class="col s12 m6 l4" style="">
               <a href="/products/{{ $product->id }}">
-                <div class="card hoverable">
-                  <div class="card-image">
-                    <img src="/storage/cover_images/{{ $product->cover_image }}" style="width:100%">
+                <div class="card hoverable" style="">
+                  <div class="card-image" class="">
+                    <img src="/storage/cover_images/{{ $product->cover_image }}" class="">
+                  </div>
+                  <div class="card-content" style="   overflow: hidden;">
+                    <h1 class="card-title truncate"><a href="/products/{{ $product->id }}">{{ $product->name }}</a></h1>
+                    <p class="truncate">{!! $product->description !!}</p>
                   </div>
                   <div class="card-content">
-                    <h1 class="card-title"><a href="/products/{{ $product->id }}">{{ $product->name }}</a></h1>
-                    <p>{!! $product->description !!}</p>
-                  </div>
-                  <div class="card-content">
-                    <p  class="price">{{ $product->price }} EGP</p>
+                    <p  class="price truncate">{{ $product->price }} EGP</p>
                   </div>
                 </div>
               </a>

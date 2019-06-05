@@ -1,0 +1,130 @@
+<?php $__env->startSection('content'); ?>
+
+    <h3>Edit Ad</h3>
+
+    <form action="<?php echo e(route('products.update', $product->id)); ?>" method="POST" class="container section">
+        <?php echo method_field('PUT'); ?>
+        <?php echo csrf_field(); ?>
+
+        <div class="input-field">
+                <input type="text" id="name" name="name" value="<?php echo e($product->name); ?>">
+                <label for="name">Product Name</label>
+        </div>
+
+        <div class="input-field">
+            <select name="category" id="">
+                <?php if($product->category == "Mobility"): ?>
+                    <option value="" disabled>Choose your category</option>
+                    <option value="Mobility" selected>Mobility</option>
+                    <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
+                <?php elseif($product->category == "Hearing Impairment (HI)"): ?>
+                    <option value="" disabled>Choose your category</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Hearing Impairment (HI)" selected>Hearing Impairment (HI)</option>
+                    <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
+                <?php elseif($product->category == "Visual Impairment (VI)"): ?>
+                    <option value="" disabled>Choose your category</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Visual Impairment (VI)" selected>Visual Impairment (VI)</option>
+                <?php else: ?>
+                    <option value="" disabled selected>Choose your category</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
+                <?php endif; ?>
+
+            </select>
+            <label for="">Category</label>
+        </div>
+
+        <div class="input-field">
+            <select name="condition" id="">
+
+                    <?php if($product->condition == "New"): ?>
+                        <option value="" disabled>Choose product condition</option>
+                        <option value="New" selected>New</option>
+                        <option value="Used">Used</option>
+
+                    <?php elseif($product->condition == "Used"): ?>
+                        <option value="" disabled>Choose product condition</option>
+                        <option value="New">New</option>
+                        <option value="Used" selected>Used</option>
+                    <?php else: ?>
+                        <option value="" disabled selected>Choose product condition</option>
+                        <option value="New">New</option>
+                        <option value="Used">Used</option>
+                    <?php endif; ?>
+
+            </select>
+            <label for="">Condition</label>
+        </div>
+
+         <div class="input-field">
+                <textarea name="description" id="description" class="materialize-textarea" data-length="100"><?php echo e($product->description); ?></textarea>
+                <label for="description">Description</label>
+        </div>
+
+        <div class="file-field input-field ">
+            <div class="btn white black-text">
+                <span>Cover Image</span>
+                <i class="material-icons left">insert_photo</i>
+                <input type="file" name="cover_image">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload Cover Imag" name="cover_image" value="<?php echo e($product->cover_image); ?>">
+            </div>
+        </div>
+
+
+        <div class="file-field input-field increment">
+                <div class="btn white black-text">
+                    <span>Product Photos</span>
+                    <i class="material-icons left">photo_library</i>
+                    <input type="file" name="product_image[]" multiple>
+                </div>
+                <div class="file-path-wrapper">
+
+                        
+
+
+                    <input class="file-path validate" type="text" placeholder="Upload 1 or more Product Photos" name="product_image[]" value="<?php echo e($product->product_image); ?>">
+                </div>
+            </div>
+
+
+        <div class="input-field">
+                <input type="number" id="price" name="price" value="<?php echo e($product->price); ?>">
+                <label for="price">Price</label>
+        </div>
+
+         <div class="section">
+                <button type="submit" class="btn darken-2 ">
+                        <span>Edit</span>
+                        <i class="material-icons left">edit</i>
+                </button>
+         </div>
+
+    </form>
+
+<?php $__env->stopSection(); ?>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+      $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+</script>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\nohandicap\resources\views/products/edit.blade.php ENDPATH**/ ?>

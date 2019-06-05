@@ -32,36 +32,79 @@
                         <!-- Dropdown Structure -->
                         <ul id="dropdown1" class="dropdown-content">
 
-                        <li>
-                            <a href="/dashboard" class="dropdown-item">Dashboard</a>
-                        </li>
-                        <li class="divider"></li>
+                            <li>
+                                <a href="/dashboard" class="dropdown-item">Dashboard</a>
+                            </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                             </a>
-                        </li>
+                            <li>
+                                <a href="/profile/show" class="dropdown-item">Profile</a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                                 </a>
+                            </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                         </form>
 
                     </div>
+                </ul>
 
                 </li>
             @endguest
-        </ul>
+            @auth
 
-            <ul class="right">
-            <li><a href="/products/create" class="btn-small waves-effect waves-light purple">
-                <span>Post An Ad</span>
-                <i class="material-icons left">add</i>
-              </a></li>
-            </ul>
+            @if (Auth()->user()->isAdmin == 0)
 
-        </div>
+                <ul class="right">
+                    <li><a href="/products/create" class="btn-small waves-effect waves-light purple">
+                        <span>Post An Ad</span>
+                        <i class="material-icons left">add</i>
+                        </a>
+                    </li>
+                </ul>
+
+            @endif
+
+
+            @if (Auth()->user()->isAdmin == 1)
+
+
+            <ul id="slide-out" class="sidenav right">
+
+                    <li><div class="user-view">
+                            <div class="background">
+                              <div style="color: black"></div>
+                            </div>
+                            <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+                            {{-- <i class="material-icons black-text center">person</i> --}}
+
+                            <a href="#name"><span class="black-text name">{{ Auth()->user()->name }}</span></a>
+                            <a href="#email"><span class="black-text email">{{ Auth()->user()->email }}</span></a>
+                          </div></li>
+                          <li><div class="divider"></div></li>
+
+                          <li><a href="/users" class="waves-effect"><i class="material-icons">person</i>Users</a></li>
+                          <li><a href="/reports" class="waves-effect"><i class="material-icons">report</i>Reports</a></li>
+                          <li><div class="divider"></div></li>
+
+                </ul>
+
+
+                  <a href="#" data-target="slide-out" class=" white-text  sidenav-trigger show-on-large right"><i class="material-icons">menu</i></a>
+
+
+
+            @endif
+            @endauth
+
+
       </nav>
 
       {{-- <nav class="navbar navbar-expand-md navbar-dark  bg-dark navbar-laravel">
