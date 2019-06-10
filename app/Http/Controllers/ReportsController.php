@@ -56,14 +56,14 @@ class ReportsController extends Controller
         ]);
 
 
-
+        $product = new Product;
         $report = new Report;
 
         $report->reason = $request->input('reason');
         $report->info = $request->input('info');
-        $report->product_id = $report->product->id;
+        $report->product_id = $product->id;
 
-
+        $report->product()->associate($product)->save();
         $report->save();
 
 
@@ -72,7 +72,7 @@ class ReportsController extends Controller
         // Report::create($request->all());
 
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('sucess' ,'Report Sent Successfully');
 
     }
 

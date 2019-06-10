@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+//$codeWallDebugTutorial = true;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -90,7 +90,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'numeric|min:11',
+        ]);
+
+        $user->update($request->all());
+
+        return redirect('profile/show')
+                         ->with('success', 'Profile Updated');
     }
 
     /**
@@ -103,4 +113,42 @@ class UsersController extends Controller
     {
         //
     }
+
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+
+    public function ban($id)
+    {
+        $user = User::find($id);
+        if ($user->isBanned) {
+            $user->isBanned = 0;
+        } else {
+            $user->isBanned = 1;
+        }
+
+        return redirect()->route('users.index')->with('success','Ban Successfully..');
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function revoke($id)
+    {
+        if(!empty($id)){
+            $user = User::find($id);
+            $user->unban();
+        }
+
+        return redirect()->route('users.index')
+        				->with('success','User Revoke Successfully.');
+    }
+
 }
+

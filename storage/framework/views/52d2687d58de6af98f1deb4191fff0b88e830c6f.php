@@ -2,13 +2,13 @@
 
     <h1>Products</h1>
 
-    <div class="container section">
+    <div class=" section">
         <?php echo $__env->make('inc.filter', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 
     <div class="row section">
 
-    <?php if(count($products)): ?>
+    <?php if(count($products)>0): ?>
         <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
             <div class="col s12 m6 l4" style="">
@@ -35,6 +35,7 @@
         <p>No products found.</p>
     <?php endif; ?>
 </div>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\nohandicap\resources\views/products/index.blade.php ENDPATH**/ ?>

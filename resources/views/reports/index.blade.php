@@ -14,6 +14,7 @@
               <table class="centered stripped highlight">
                     <thead>
                       <tr>
+                          <th>#</th>
                           <th>Report</th>
                           <th></th>
                           <th></th>
@@ -21,10 +22,11 @@
                     </thead>
 
                     <tbody>
-                            @foreach ($reports as $report)
+                            @foreach ($reports as $key => $report)
 
                       <tr>
-                        <td><a href="">   {{ $report->id }}</a>
+                        <td>{{ ++$key }}</td>
+                        <td><a href="{{ route('reports.show', $report->id) }}">{{ $report->reason }}</a>
 
                         </td>
                         <td>

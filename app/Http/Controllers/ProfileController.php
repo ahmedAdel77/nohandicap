@@ -64,11 +64,10 @@ class ProfileController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        //
+        $user = User::find($id);
         return view('profile.edit', compact('user'));
-
     }
 
     /**
@@ -78,19 +77,21 @@ class ProfileController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
-    {
-        //
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-        ]);
+    // public function update(Request $request, User $user)
+    // {
 
-        $user->update($request->all());
+    //     //
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'email' => 'required',
+    //         'phone' => 'numeric|min:11',
+    //     ]);
 
-        return redirect()->route('profile.show')
-                         ->with('success', 'Profile Updated');
-    }
+    //     $user->update($request->all());
+
+    //     return redirect()->route('profile.show')
+    //                      ->with('success', 'Profile Updated');
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -13,7 +13,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <a href="/profile/<?php echo e($user->id); ?>/edit" class="btn  lighten-1 btn-small"><span>Edit</span>
+                    <a href="/profile/<?php echo e($user->id); ?>/edit" class="btn blue  btn-small"><span>Edit</span>
                         <i class="material-icons left">edit</i></a>
                     <div class="container ">
                         <div class="row section">
@@ -25,6 +25,11 @@
                             <div class="col l12">
                                 <h5 class="infostyle">Email</h5>
                                 <p><?php echo e($user->email); ?></p>
+                            </div>
+
+                            <div class="col l12">
+                                <h5 class="infostyle">Phone Number</h5>
+                                <p><?php echo e($user->phone); ?></p>
                             </div>
 
                         </div>

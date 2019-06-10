@@ -33,12 +33,12 @@ class AdminController extends Controller
 
         // check for correct user
         if(auth()->user()->isAdmin !== 1){
-            return redirect('/products')->with('error', 'Unauthorized page');
+            return redirect('home')->with('error', 'Unauthorized page');
         }
 
         $users = User::all();
 
-        return view('admin.showUsers',compact('users'));
+        return view('/');
     }
 
     /**

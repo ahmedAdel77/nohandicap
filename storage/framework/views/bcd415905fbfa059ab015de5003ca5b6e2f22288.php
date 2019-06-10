@@ -85,7 +85,7 @@
                             <div class="background">
                               <div style="color: black"></div>
                             </div>
-                            <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+                            <a href="#user"><img class="circle" src="<?php echo e(asset('Avatar.jpg')); ?>"></a>
                             
 
                             <a href="#name"><span class="black-text name"><?php echo e(Auth()->user()->name); ?></span></a>

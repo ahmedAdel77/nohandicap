@@ -1,0 +1,5 @@
+<button onclick="document.getElementById('banUserForm{{ $user->id }}').submit();">Logout</button>
+
+<form id="banUserForm{{ $user->id }}" action="{{ url('users/'.$user->id.'/ban') }}" method="POST" style="display: none;">
+    @csrf
+</form>

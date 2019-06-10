@@ -29,6 +29,7 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
     <link href=" {{ URL::asset('css/materialize.css') }}" rel="stylesheet">
+    <link href=" {{ URL::asset('css/materialize.min.css') }}" rel="stylesheet">
 
     <style>
 
@@ -121,11 +122,16 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
  {{-- <script src="js/materialize.js"></script> --}}
  <script src="{{ asset('js/materialize.js') }}" defer></script>
+ <script src="{{ asset('js/materialize.min.js') }}" defer></script>
+
  <script>
 
    $(document).ready(function () {
 
-
+    $("findBtn").click(function(){
+        var cat = $("#catID").val();
+        alert(cat);
+    });
 
      $('.sidenav').sidenav();
      $('.tabs').tabs();
@@ -161,6 +167,9 @@
 
 
  </script>
+
+@stack('js')
+
 
 </body>
 </html>

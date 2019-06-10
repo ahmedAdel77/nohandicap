@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="section">
-        <a href="/products" class="btn grey darken-3">
+        <a href="/products" class="btn grey darken-3 waves-effect waves-light">
             <span>Back</span>
             <i class="material-icons left">arrow_back_ios</i>
         </a>
@@ -46,7 +46,7 @@
                             </li>
                         @foreach (json_decode($product->product_image, true) as $image)
                         <li>
-                                <img src="/public/product_images/{{ $image }}" style="width:100%; height: 100%; " class="materialboxed">
+                                <img src="/storage/product_images/{{ $image }}" style="width:100%; height: 100%; " class="materialboxed">
                         </li>
                         @endforeach
                     </ul>
@@ -68,7 +68,7 @@
             </div>
 
             @if (!Auth::guest())
-                @if (Auth::user()->id == $product->user_id)
+                @if (Auth::user()->id == $product->user_id || Auth::user()->isAdmin == 1)
 
                 <div class="container ">
 
@@ -82,17 +82,12 @@
                             @method("DELETE")
                             @csrf
 
-                            <button type="submit" class="btn red darken-2 right">
+                            <button type="submit" class="btn red darken-1 right">
                                     <span>Delete</span>
                                     <i class="material-icons left">delete</i>
                             </button>
 
                         </form>
-{{--
-                        @if (Auth()->user()->isAdmin == 1)
-                            <h1>Admin</h1>
-                        @endif --}}
-
 
                 </div>
 
@@ -101,48 +96,17 @@
             @endif
 {{-- @guest --}}
 
+    @if (Auth::guest() || (Auth::user()->id != $product->user_id && Auth::user()->isAdmin == 0))
+
             <div class="section container">
-{{--
-                    <a href="#report" class="btn red darken-2 modal-trigger waves-effect">
-                            <span>report</span>
-                            <i class="material-icons left">report_problem</i>
-                        </a>
-
-                        <div class="modal section" id="report">
-                            <div class="modal-content">
-                                <form action="#">
-                                        <div class="input-field section">
-                                                <select name="reason" id="">
-                                                    <option value="" disabled selected>Choose reason of report</option>
-                                                    <option value="This is illegal/fraudulent">This is illegal/fraudulent</option>
-                                                    <option value="This Ad is spam">This Ad is spam</option>
-                                                    <option value="This Ad is a duplicate">This Ad is a duplicate</option>
-                                                    <option value="This Ad is in the wrong category">This Ad is in the wrong category</option>
-                                                    <option value="The Ad goes against posting rules">The Ad goes against <a href="#">posting rules</a></option>
-                                                </select>
-                                                <label for="">Category</label>
-                                            </div>
-
-                                    <div class="input-field">
-                                        <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
-                                        <label for="textarea">More information</label>
-                                    </div>
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <a href="" class="btn modal-close red darken-3 waves-effect waves-dark">Send report</a>
-                            </div>
-                        </div>
-
- --}}
 
             <ul class="collapsible">
                 <li>
                   <div class="collapsible-header"><i class="material-icons red-text text-darken-3">report_problem</i>Report</div>
                   <div class="collapsible-body">
                     <span>
-                            <form action="{{ route('reports.store'), $product->id}}" method="POST">
+
+                            <form action="{{ url('products/'.$product->id.'/report') }}" method="POST">
                             @csrf
 
                                 <div class="input-field">
@@ -158,7 +122,7 @@
                                 </div>
 
                                     <div class="input-field">
-                                        <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
+                                        <textarea name="info" id="textarea" class="materialize-textarea" data-length="100"></textarea>
                                         <label for="textarea">More information</label>
                                     </div>
 
@@ -173,6 +137,7 @@
                 </li>
             </ul>
         </div>
+    @endif
 {{-- @endguest --}}
 
         <div class="row section">
@@ -192,7 +157,13 @@
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">phone</i>
                         <span class="title">Phone</span>
-                        <p class="grey-text">010-123-4567</p>
+                        <p class="grey-text">{{ $product->user->phone }}</p>
+
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle blue">email</i>
+                        <span class="title">Email</span>
+                        <p class="grey-text">{{ $product->user->email }}</p>
 
                     </li>
                     <li class="collection-item avatar">

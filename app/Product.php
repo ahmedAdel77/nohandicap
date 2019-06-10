@@ -14,14 +14,25 @@ class Product extends Model implements ViewableContract
     public $primarykey = 'id';
     public $timestamps = true;
 
+    public function scopeFilter($q)
+    {
+        // if (request('price_from')) {
+        //     $q->where('price', '>', request('price_from'));
+        // }
+        if (request('category')) {
+            $q->where('category', '=', request('category'));
+        }
+
+        return $q;
+    }
+
     public function user(){
 
         return $this->belongsTo('App\User');
     }
 
-    public function report(){
-
-        return $this->belongsTo('App\Report');
+    public function reports(){
+        return $this->hasMany('App\Report');
     }
 
     public function category()

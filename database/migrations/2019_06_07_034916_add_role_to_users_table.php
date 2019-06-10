@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropKeysFromProductsTable extends Migration
+class AddRoleToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class DropKeysFromProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->dropColumn('category_id');
-            $table->dropColumn('condition_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('isAdmin')->nullable();
         });
     }
 
@@ -27,8 +25,8 @@ class DropKeysFromProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('isAdmin');
         });
     }
 }

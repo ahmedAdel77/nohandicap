@@ -12,6 +12,7 @@
               <table class="centered stripped highlight">
                     <thead>
                       <tr>
+                          <th>#</th>
                           <th>Report</th>
                           <th></th>
                           <th></th>
@@ -19,10 +20,11 @@
                     </thead>
 
                     <tbody>
-                            <?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                       <tr>
-                        <td><a href="">   <?php echo e($report->id); ?></a>
+                        <td><?php echo e(++$key); ?></td>
+                        <td><a href="<?php echo e(route('reports.show', $report->id)); ?>"><?php echo e($report->reason); ?></a>
 
                         </td>
                         <td>

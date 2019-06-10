@@ -1,5 +1,49 @@
 @extends('layouts.app')
 
+@push('js')
+    <script>
+
+        function readUrl(input, index) {
+
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function(e) {
+                $('#myimage'+ index).attr('src', e.target.result);
+              }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+                $(placeToInsertImagePreview).text("");
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img class="col l2">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#gallery-photo-add').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });
+
+    </script>
+@endpush
+
 
 @section('content')
     <h3>Place an Ad</h3>
@@ -37,26 +81,40 @@
                 <label for="description">Description</label>
         </div>
 
-        <div class="file-field input-field">
-            <div class="btn white black-text">
-                <span>Cover Image</span>
-                <i class="material-icons left">insert_photo</i>
-                <input type="file" name="cover_image">
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload Cover Image" name="cover_image">
+    <div class="row">
+        <div class="col l10">
+            <div class="file-field input-field">
+                <div class="btn orange white-text">
+                    <span>Cover Image</span>
+                    <i class="material-icons left">insert_photo</i>
+                    <input type="file" name="cover_image" onchange="readUrl(this, 0)"  style="width: 100px;">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Upload Cover Image">
+                </div>
             </div>
         </div>
 
+        <div class="col l2 ">
+            <img src="" id="myimage0" style="width: 100px;">
+        </div>
+    </div>
+
         <div class="file-field input-field increment">
-            <div class="btn white black-text">
+            <div class="btn orange white-text">
                 <span>Product Photos</span>
                 <i class="material-icons left">photo_library</i>
-                <input type="file" name="product_image[]" multiple>
+                <input id="gallery-photo-add" type="file" name="product_image[]" multiple>
             </div>
             <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" placeholder="Upload 1 or more Product Photos" name="product_image[]">
             </div>
+        </div>
+
+        <div class="gallery row">
+            {{-- @foreach (json_decode($product->product_image, true) as $i => $image)
+                <img src="/storage/product_images/{{ $image }}" class="col l2" >
+            @endforeach --}}
         </div>
 
         <div class="input-field">
@@ -65,7 +123,7 @@
          </div>
 
          <div class="section">
-                <button type="submit" class="btn darken-2 ">
+                <button type="submit" class="btn purple darken-2 waves-effect waves-light">
                         <span>Post</span>
                         <i class="material-icons left">add</i>
                 </button>

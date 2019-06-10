@@ -82,7 +82,7 @@
                             <div class="background">
                               <div style="color: black"></div>
                             </div>
-                            <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+                            <a href="#user"><img class="circle" src="{{ asset('Avatar.jpg') }}"></a>
                             {{-- <i class="material-icons black-text center">person</i> --}}
 
                             <a href="#name"><span class="black-text name">{{ Auth()->user()->name }}</span></a>

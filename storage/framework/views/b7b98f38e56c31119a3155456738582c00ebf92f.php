@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
     <div class="section">
-        <a href="/products" class="btn grey darken-3">
+        <a href="/products" class="btn grey darken-3 waves-effect waves-light">
             <span>Back</span>
             <i class="material-icons left">arrow_back_ios</i>
         </a>
@@ -35,7 +35,7 @@
                             </li>
                         <?php $__currentLoopData = json_decode($product->product_image, true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li>
-                                <img src="/public/product_images/<?php echo e($image); ?>" style="width:100%; height: 100%; " class="materialboxed">
+                                <img src="/storage/product_images/<?php echo e($image); ?>" style="width:100%; height: 100%; " class="materialboxed">
                         </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
@@ -58,7 +58,7 @@
             </div>
 
             <?php if(!Auth::guest()): ?>
-                <?php if(Auth::user()->id == $product->user_id): ?>
+                <?php if(Auth::user()->id == $product->user_id || Auth::user()->isAdmin == 1): ?>
 
                 <div class="container ">
 
@@ -72,14 +72,12 @@
                             <?php echo method_field("DELETE"); ?>
                             <?php echo csrf_field(); ?>
 
-                            <button type="submit" class="btn red darken-2 right">
+                            <button type="submit" class="btn red darken-1 right">
                                     <span>Delete</span>
                                     <i class="material-icons left">delete</i>
                             </button>
 
                         </form>
-
-
 
                 </div>
 
@@ -88,15 +86,17 @@
             <?php endif; ?>
 
 
-            <div class="section container">
+    <?php if(Auth::guest() || (Auth::user()->id != $product->user_id && Auth::user()->isAdmin == 0)): ?>
 
+            <div class="section container">
 
             <ul class="collapsible">
                 <li>
                   <div class="collapsible-header"><i class="material-icons red-text text-darken-3">report_problem</i>Report</div>
                   <div class="collapsible-body">
                     <span>
-                            <form action="<?php echo e(route('reports.store'), $product->id); ?>" method="POST">
+
+                            <form action="<?php echo e(url('products/'.$product->id.'/report')); ?>" method="POST">
                             <?php echo csrf_field(); ?>
 
                                 <div class="input-field">
@@ -112,7 +112,7 @@
                                 </div>
 
                                     <div class="input-field">
-                                        <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
+                                        <textarea name="info" id="textarea" class="materialize-textarea" data-length="100"></textarea>
                                         <label for="textarea">More information</label>
                                     </div>
 
@@ -127,6 +127,7 @@
                 </li>
             </ul>
         </div>
+    <?php endif; ?>
 
 
         <div class="row section">
@@ -146,7 +147,13 @@
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">phone</i>
                         <span class="title">Phone</span>
-                        <p class="grey-text">010-123-4567</p>
+                        <p class="grey-text"><?php echo e($product->user->phone); ?></p>
+
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle blue">email</i>
+                        <span class="title">Email</span>
+                        <p class="grey-text"><?php echo e($product->user->email); ?></p>
 
                     </li>
                     <li class="collection-item avatar">

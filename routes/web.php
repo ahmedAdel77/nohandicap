@@ -12,11 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::group(['middleware' => 'admin'], function () {
+    Route::post('users/{user}/ban', 'UsersController@ban');
+});
 Route::get('/', 'ProductsController@index')->name('home');
-Route::get('/products', 'ProductsController@filter');
+Route::get('/products/filter', 'ProductsController@filter');
+Route::middleware('throttle:60,1')->group(function () {
+    Route::post('products/{product}/report', 'ProductsController@report');
 
+});
 Route::resource('products', 'ProductsController');
+
+Route::post('/users', 'UsersController@revoke');
 Route::resource('users', 'UsersController');
 Route::post('/users', 'UsersController@makeAdmin');
 
@@ -30,6 +37,17 @@ Route::get('/admin/showUsers', 'AdminController@showUsers');
 Route::resource('profile', 'ProfileController');
 
 Auth::routes();
+
+// Route::group(['middleware'=>'forbid-banned-user'], function(){
+//     Route::get('users', 'UsersController@index')->name('users.index');
+//     Route::get('userUserRevoke/{id}', array('as'=> 'users.revoke', 'uses' => 'UsersController@revoke'));
+//     Route::post('userBan', array('as'=> 'users.ban', 'uses' => 'UsersController@ban'));
+// });
+
+Route::get('home', [
+    'uses' => 'ProfileController@index',
+    'middleware' => 'forbid-banned-user',
+]);
 
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
 

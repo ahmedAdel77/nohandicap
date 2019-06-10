@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Product;
 use App\Category;
 use App\Condition;
+use App\Report;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\App;
 
@@ -21,6 +22,7 @@ class ProductsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        // $this->middleware('guest', ['only' => ['index', 'show']]);
     }
 
     /**
@@ -33,6 +35,8 @@ class ProductsController extends Controller
         //
         $products =  Product::orderBy('created_at', 'desc')->paginate(6)->onEachSide(2);
 
+        // $products =  Product::filter()->paginate(5);
+
         // $products = Product::where('category', 'Visual Impairment (VI)')->paginate(6)->onEachSide(2);
 
 
@@ -40,32 +44,39 @@ class ProductsController extends Controller
         //     $products->where('category');
         // }
 
-        if ($category = request('category')) {
+        // if ($category = request('category')) {
 
-            $products->where('category', $category);
-        }
+        //     $products->where('category', $category);
+        // }
 
-        // $products = $products->get();
+        // // $products = $products->get();
 
 
-        $filters = Product::selectRaw('category, count(*) exist')
-        ->groupBy('category')
-        ->orderByRaw('name asc')
-        ->get()->toArray();
+        // $filters = Product::selectRaw('category, count(*) exist')
+        // ->groupBy('category')
+        // ->orderByRaw('name asc')
+        // ->get()->toArray();
 
-        return view('products.index',compact('products', 'filters'));
+        return view('products.index',compact('products'));
     }
 
     public function filter(Request $request)
     {
+        $category = $request->input('category');
+        $price = $request->input('price');
 
-        $product = Product::all();
-        $product->category = $request->input('category');
-
-        $products = Product::where('category', $product->category)->paginate(6)->onEachSide(2);
-
-
-
+        if ($category == 'All' && $price == 'Unlimited') {
+            $products =  Product::orderBy('created_at', 'desc')->paginate(6)->onEachSide(2);
+        }
+        elseif ($category == 'All') {
+            $products =  Product::orderBy('created_at', 'desc')->whereBetween('price', [$price-100, $price])->paginate(6)->onEachSide(2);
+        }
+        elseif ($price == 'Unlimited') {
+            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->paginate(6)->onEachSide(2);
+        }
+        else {
+            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->whereBetween('price', [$price-100, $price])->paginate(6)->onEachSide(2);
+        }
 
         return view('products.index',compact('products'));
     }
@@ -100,6 +111,16 @@ class ProductsController extends Controller
 
         ]);
 
+                //Create Post(post product)
+                $product = new Product;
+                $product->name = $request->input('name');
+                $product->description = $request->input('description');
+                $product->price = $request->input('price');
+                $product->condition = $request->input('condition');
+                $product->category = $request->input('category');
+                $product->user_id = auth()->user()->id;
+
+
 
         //Handel file upload
         if($request->hasFile('cover_image')){
@@ -114,10 +135,14 @@ class ProductsController extends Controller
             // Upload image
             $path = $request->file('cover_image')->storeAs('Public/cover_images', $fileNameToStore);
 
+            $product->cover_image = $fileNameToStore;
+
+
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            // $fileNameToStore = 'noimage.jpg';
         }
 
+        $data = [];
 
         if ($request->hasFile('product_image')) {
 
@@ -129,21 +154,9 @@ class ProductsController extends Controller
 
                 $data[] = $name;
             }
+
+            $product->product_image=json_encode($data);
         }
-
-
-        //Create Post(post product)
-        $product = new Product;
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->condition = $request->input('condition');
-        $product->category = $request->input('category');
-        $product->cover_image = $fileNameToStore;
-        $product->user_id = auth()->user()->id;
-
-        $product->product_image=json_encode($data);
-
 
         $product->save();
 
@@ -180,19 +193,13 @@ class ProductsController extends Controller
         $product = Product::find($id);
 
         // check for correct user
-        if(auth()->user()->id !== $product->user_id){
-            return redirect('/products')->with('error', 'Unauthorized page');
+        if(auth()->user()->id == $product->user_id | auth()->user()->isAdmin == 1){
+            return view('products.edit')->with('product', $product);
 
+        }else {
+            return redirect('/products')->with('error', 'Unauthorized page');
         }
 
-        // $str = '';
-        // foreach ($product->product_image as $di ) {
-        //     $str += $di.','.'';
-        // }
-
-        // $product->product_image = $str;
-
-        return view('products.edit')->with('product', $product);
     }
 
     /**
@@ -204,19 +211,32 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request->file('cover_image');
+
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
             'condition' => 'required',
             'price' => 'required',
-            'cover_image' => 'required|image|max:1999|mimes:jpeg,png,jpg,gif,svg',
-            'product_image' => 'required',
-            'product_image.*' => 'image|max:1999|mimes:jpeg,png,jpg,gif,svg',
+            // 'cover_image' => 'required|image|max:1999|mimes:jpeg,png,jpg,gif,svg',
+            // 'product_image' => 'required',
+            // 'product_image.*' => 'image|max:1999|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
+
+
+        //Create Post(post product)
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->condition = $request->input('condition');
+        $product->category = $request->input('category');
+
+
         //Handel file upload
-        if($request->hasFile('cover_image')){
+        if ($request->hasFile('cover_image')) {
+
             // Get filename with extension
             $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
             // Get just filename
@@ -228,7 +248,14 @@ class ProductsController extends Controller
             // Upload image
             $path = $request->file('cover_image')->storeAs('Public/cover_images', $fileNameToStore);
 
+            if($request->hasFile('cover_image')){
+                Storage::delete('public/cover_images/' . $product->cover_image);
+                $product->cover_image = $fileNameToStore;
+            }
+
         }
+
+        $data = [];
 
         if ($request->hasFile('product_image')) {
 
@@ -240,22 +267,9 @@ class ProductsController extends Controller
 
                 $data[] = $name;
             }
+
+            $product->product_image=json_encode($data);
         }
-
-        //Create Post(post product)
-        $product = Product::find($id);
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->condition = $request->input('condition');
-        $product->category = $request->input('category');
-        if($request->hasFile('cover_image')){
-            Storage::delete('public/cover_images/' . $product->cover_image);
-            $product->cover_image = $fileNameToStore;
-        }
-
-        $product->product_image=json_encode($data);
-
         $product->save();
 
         return redirect('/products')->with('success', 'Product Updated');
@@ -288,6 +302,23 @@ class ProductsController extends Controller
         $product->delete();
         return redirect('/products')->with('success', 'Product Removed');
 
+    }
+
+
+
+    public function report(Request $request, Product $product)
+    {
+        // $request->validate([])
+        // Report::create($request->all());
+
+        $report = new Report;
+        $report->reason = $request->input('reason');
+        $report->info = $request->input('info');
+        $report->product_id = $product->id;
+
+        $report->save();
+
+        return redirect()->back()->with('success', 'Report Sent Successfully');
     }
 
 }

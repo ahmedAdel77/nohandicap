@@ -4,13 +4,13 @@
 
     <h1>Products</h1>
 
-    <div class="container section">
+    <div class=" section">
         @include('inc.filter')
     </div>
 
     <div class="row section">
 
-    @if (count($products))
+    @if (count($products)>0)
         @foreach ($products as $product)
 
             <div class="col s12 m6 l4" style="">
@@ -36,4 +36,5 @@
         <p>No products found.</p>
     @endif
 </div>
+
 @endsection

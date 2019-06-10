@@ -14,10 +14,12 @@
                         </div>
                     @endif
 
+                    <a href="/profile/show" class="btn-small grey darken-3 waves-effect waves-light"><span>Back</span>
+                        <i class="material-icons left">arrow_back_ios</i></a>
 
                     <h3>Edit Profile</h3>
 {{-- {{ route('routeName', ['id'=>1]) }} --}}
-                    <form action="" method="POST" class="container section">
+                    <form action="{{ route('users.update', $user->id) }}" method="POST" class="container section">
                         @method('PUT')
                      @csrf
 
@@ -26,14 +28,18 @@
                                <label for="name">Name</label>
                         </div>
                         <div class="input-field">
-                               <input type="text" id="email" name="email" value="{{ $user->email }}">
+                               <input type="email" id="email" name="email" value="{{ $user->email }}">
                                <label for="email">Email</label>
+                        </div>
+                        <div class="input-field">
+                               <input type="tel" id="phone" name="phone" value="{{ $user->phone }}">
+                               <label for="phone">Phone Number</label>
                         </div>
 
                          <div class="section">
-                                <button type="submit" class="btn darken-2 ">
+                                <button type="submit" class="btn purple darken-2 waves-effect waves-light">
                                         <span>Edit</span>
-                                        <i class="material-icons left">edit</i>
+                                        <i class="material-icons left">done</i>
                                 </button>
                          </div>
 
