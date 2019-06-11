@@ -44,20 +44,20 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <button onclick="document.getElementById('banUserForm<?php echo e($user->id); ?>').submit();" name="isBanned">ban</button>
+                                        
 
-                                        <form id="banUserForm<?php echo e($user->id); ?>" action="<?php echo e(url('users/'.$user->id.'/ban')); ?>" method="POST" style="display: none;">
+                                        <!-- Switch -->
+                                        <form id="banUserForm<?php echo e($user->id); ?>" action="<?php echo e(url('users/'.$user->id.'/ban')); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
-                                        </form>
-                                          <!-- Switch -->
-                                        <div class="switch section">
-                                            <label>
-                                                Unban
-                                                <input type="checkbox" onclick="document.getElementById('banUserForm<?php echo e($user->id); ?>').submit();" name="isBanned">
+                                            <div class="switch section">
+                                                <label>
+                                                    Unban
+                                                <input <?php echo e($user->isBanned ? "checked" : null); ?> type="checkbox" onclick="document.getElementById('banUserForm<?php echo e($user->id); ?>').submit();" name="isBanned">
                                                 <span class="lever"></span>
-                                                Ban
-                                            </label>
-                                        </div>
+                                                    Ban
+                                                </label>
+                                            </div>
+                                        </form>
                                     </td>
 
                                 </tr>

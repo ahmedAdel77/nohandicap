@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function index()
+    public function about()
     {
-        $title = 'this is laravel !!';
-        return view('pages.index')->with('title', $title);
+        return view('pages.about');
+    }
+    public function safety()
+    {
+        return view('pages.safety');
     }
 }

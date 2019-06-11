@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="section">
-        <a href="/reports" class="btn grey darken-3">
+        <a href="/reports" class="btn blue-grey waves-effect waves-light">
             <span>Back</span>
             <i class="material-icons left">arrow_back_ios</i>
         </a>

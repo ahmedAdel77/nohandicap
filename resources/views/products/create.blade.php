@@ -44,9 +44,8 @@
     </script>
 @endpush
 
-
 @section('content')
-    <h3>Place an Ad</h3>
+    <h3 style="font-weight: lighter; font-size: 50px;">Place an Ad</h3>
 
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="container">
 
@@ -90,7 +89,7 @@
                     <input type="file" name="cover_image" onchange="readUrl(this, 0)"  style="width: 100px;">
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Upload Cover Image">
+                    <input class="file-path validate" type="text" placeholder="Upload Cover Image" >
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
     <div class="section">
-        <a href="/products" class="btn grey darken-3 waves-effect waves-light">
+        <a href="/products" class="btn blue-grey waves-effect waves-light">
             <span>Back</span>
             <i class="material-icons left">arrow_back_ios</i>
         </a>
@@ -10,23 +10,21 @@
     <div class="">
 
             <div class="row">
-                <div class="col l6">
+                <div class="col s6 l6">
                     <h3 class="" style=""><?php echo e($product->name); ?></h3>
 
                 </div>
-                <div class="col l6 right-align">
+                <div class="col s6 l6 right-align">
                     <h5 class="price" style="font-weight: 500; font-size: 30px;"><?php echo e($product->price); ?> EGP</h5>
 
                 </div>
-                <div class="col l6">
+                <div class="col s6 l6">
                         
 
                     <p class="right-align">Posted <?php echo e($product->created_at->diffForHumans()); ?></p>
 
                 </div>
             </div>
-
-            
 
             <div class="slider ">
                     <ul class="slides z-depth-1">
@@ -41,26 +39,32 @@
                     </ul>
                 </div>
 
-            <div class="row section">
-                <div class="col l6">
+            <div class="row">
+                <div class="col s6 l6">
                     <h5 class="infostyle">Category</h5>
                     <p><?php echo e($product->category); ?></p>
                 </div>
-                <div class="col l6">
+                <div class="col s6 l6">
                     <h5 class="infostyle">Condition</h5>
                     <p><?php echo e($product->condition); ?></p>
                 </div>
-                <div class="col l6">
+                <div class="col s6 l6">
                     <h5 class="infostyle">Description</h5>
                     <?php echo $product->description; ?>
 
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col s2 l2 ">
+                        <p>Views: <span  style="font-weight: 500; border-right: 1px solid lightgray; padding-right: 10px"><?php echo e(views($product)->count()); ?></span></p>
+                </div>
+            </div>
+
             <?php if(!Auth::guest()): ?>
                 <?php if(Auth::user()->id == $product->user_id || Auth::user()->isAdmin == 1): ?>
 
-                <div class="container ">
+                <div class="container" style="margin-bottom: 100px;">
 
                         <form action="<?php echo e(url("products/".$product->id)); ?>" method="POST">
 
@@ -72,10 +76,22 @@
                             <?php echo method_field("DELETE"); ?>
                             <?php echo csrf_field(); ?>
 
-                            <button type="submit" class="btn red darken-1 right">
+                            <a class="waves-effect waves-red red darken-2 btn modal-trigger right" href="#modal1">
                                     <span>Delete</span>
                                     <i class="material-icons left">delete</i>
-                            </button>
+                                </a>
+
+                                <!-- Modal Structure -->
+                                <div id="modal1" class="modal">
+                                  <div class="modal-content">
+                                    <h5>Are you sure you want to delete this item ? </h5>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="modal-close btn red darken-2 waves-effect">
+                                            <span>Yes, delete it</span>
+                                    </button>
+                                  </div>
+                                </div>
 
                         </form>
 
@@ -85,11 +101,9 @@
 
             <?php endif; ?>
 
-
     <?php if(Auth::guest() || (Auth::user()->id != $product->user_id && Auth::user()->isAdmin == 0)): ?>
 
-            <div class="section container">
-
+        <div class="container" style="margin-bottom: 60px;">
             <ul class="collapsible">
                 <li>
                   <div class="collapsible-header"><i class="material-icons red-text text-darken-3">report_problem</i>Report</div>
@@ -129,74 +143,47 @@
         </div>
     <?php endif; ?>
 
+<!-- contact seller -->
 
-        <div class="row section">
-        <div class="col l2 ">
-                <p>Views: <span  style="font-weight: 500; border-right: 1px solid lightgray; padding-right: 10px"><?php echo e(views($product)->count()); ?></span></p>
-        </div>
-    </div>
+        <div class="row">
 
-
-        <!-- contact seller -->
-        <div class="">
-
+            <div class="col s12 l6" style="padding: 30px;">
                 <ul class="collection with-header">
-                    <li class="collection-header">
-                        <h4>Contact Seller</h4>
+                    <li class="collection-header center">
+                        <h4>Seller Info.</h4>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle blue">person</i>
+                        <span class="title">Name</span>
+                        <p class="grey-text"><?php echo e($product->user->name); ?></p>
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">phone</i>
                         <span class="title">Phone</span>
                         <p class="grey-text"><?php echo e($product->user->phone); ?></p>
-
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">email</i>
                         <span class="title">Email</span>
                         <p class="grey-text"><?php echo e($product->user->email); ?></p>
-
                     </li>
-                    <li class="collection-item avatar">
-                        <i class="material-icons circle blue">email</i>
-                        <span class="title">Email</span>
-
-
-                        <form action="#">
-                            <div class="input-field">
-                                <input type="email" id="email">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field">
-                                <textarea name="" id="textarea" class="materialize-textarea" data-length="100"></textarea>
-                                <label for="textarea">Message content</label>
-                            </div>
-                            <div class="input-field center">
-                                <button class="btn green">
-                                    <span>Send</span>
-                                    <i class="material-icons right">email</i>
-                                </button>
-                            </div>
-                        </form>
-                    </li>
-
                 </ul>
             </div>
+
+            <div class="col s12 l6" style="width: ;">
+                <div class="center safe">
+                    <i class="material-icons green-text">info</i>
+                    <h5>Safety Tips</h5>
+                    <p>1. Only meet in public/crowded places for example metro stations and malls.</p>
+                    <p>2. Never go alone to meet a buyer/seller, always take someone with you.</p>
+                    <p>3. Check and inspect the product properly before purchasing it</p>
+                    <p>4. Never pay anything in advance or transfer money before inspecting the product</p>
+                </div>
+            </div>
+
         </div>
 
-
-    <div class="container section center safe">
-        <i class="material-icons green-text">info</i>
-
-        <h5>Safety Tips</h5>
-        <p>1. Only meet in public/crowded places for example metro stations and malls.</p>
-        <p>2. Never go alone to meet a buyer/seller, always take someone with you.</p>
-        <p>3. Check and inspect the product properly before purchasing it</p>
-        <p>4. Never pay anything in advance or transfer money before inspecting the product</p>
-    </div>
-
-    </div>
-
-
+<?php echo $__env->make('inc.scrollup', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 

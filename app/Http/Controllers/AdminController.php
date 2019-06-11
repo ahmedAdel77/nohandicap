@@ -33,7 +33,7 @@ class AdminController extends Controller
 
         // check for correct user
         if(auth()->user()->isAdmin !== 1){
-            return redirect('home')->with('error', 'Unauthorized page');
+            return redirect('/')->with('error', 'Unauthorized page');
         }
 
         $users = User::all();

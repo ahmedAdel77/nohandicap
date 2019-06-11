@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'Laravel') }} | Classified Ads for assistive tools</title>
 
+      <link rel="icon" href="{{ asset('icon.png') }}" type="image/gif" sizes="16x16">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/materialize.js') }}" defer></script> --}}
@@ -33,6 +35,15 @@
 
     <style>
 
+@font-face {
+   font-family: Aclonica;
+   /* src: url('{{ public_path('fonts/Aclonica.tff') }}'); */
+   src: url('/fonts/AdventPro.tff');
+}
+html{
+    scroll-behavior: smooth;
+}
+
 .price {
     font-size: 25px;
     color: #5cb74c;
@@ -46,7 +57,8 @@
     background-color: ghostwhite;
     box-shadow:  .5px .5px 3px 1px #5cb74c;
 
-    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 30px;
 }
 
 .imagein{
@@ -102,10 +114,13 @@
 </head>
 <body>
 
+
     <div id="app">
 
         <main class="">
             @include('inc.navbar')
+            @yield('extra')
+
             <div class="container">
                 @include('inc.messages')
             @yield('content')
@@ -136,6 +151,8 @@
      $('.sidenav').sidenav();
      $('.tabs').tabs();
      $('.dropdown-trigger').dropdown();
+     $('.tooltipped').tooltip();
+     $('.scrollspy').scrollSpy();
      $('select').formSelect();
      $('.slider').slider();
      $('.materialboxed').materialbox();

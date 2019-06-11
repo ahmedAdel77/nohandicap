@@ -35,10 +35,22 @@
                                 <?php echo method_field("DELETE"); ?>
                                 <?php echo csrf_field(); ?>
 
-                                <button type="submit" class="btn red darken-2">
-                                        <span>Delete</span>
-                                        <i class="material-icons left">delete</i>
-                                </button>
+                                <a class="waves-effect waves-red red darken-2 btn modal-trigger" href="#modal1">
+                                    <span>Delete</span>
+                                    <i class="material-icons left">delete</i>
+                                </a>
+
+                                <!-- Modal Structure -->
+                                <div id="modal1" class="modal">
+                                  <div class="modal-content">
+                                    <h5>Are you sure you want to delete this item ? </h5>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="modal-close btn red darken-2 waves-effect">
+                                            <span>Yes, delete it</span>
+                                    </button>
+                                  </div>
+                                </div>
                             </form>
 
                         </td>

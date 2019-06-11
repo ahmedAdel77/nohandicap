@@ -9,6 +9,8 @@
 
     <title><?php echo e(config('app.name', 'Laravel')); ?> | Classified Ads for assistive tools</title>
 
+      <link rel="icon" href="<?php echo e(asset('icon.png')); ?>" type="image/gif" sizes="16x16">
+
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
     
@@ -33,6 +35,15 @@
 
     <style>
 
+@font-face {
+   font-family: Aclonica;
+   /* src: url('<?php echo e(public_path('fonts/Aclonica.tff')); ?>'); */
+   src: url('/fonts/AdventPro.tff');
+}
+html{
+    scroll-behavior: smooth;
+}
+
 .price {
     font-size: 25px;
     color: #5cb74c;
@@ -46,7 +57,8 @@
     background-color: ghostwhite;
     box-shadow:  .5px .5px 3px 1px #5cb74c;
 
-    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 30px;
 }
 
 .imagein{
@@ -102,10 +114,13 @@
 </head>
 <body>
 
+
     <div id="app">
 
         <main class="">
             <?php echo $__env->make('inc.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php echo $__env->yieldContent('extra'); ?>
+
             <div class="container">
                 <?php echo $__env->make('inc.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <?php echo $__env->yieldContent('content'); ?>
@@ -136,6 +151,8 @@
      $('.sidenav').sidenav();
      $('.tabs').tabs();
      $('.dropdown-trigger').dropdown();
+     $('.tooltipped').tooltip();
+     $('.scrollspy').scrollSpy();
      $('select').formSelect();
      $('.slider').slider();
      $('.materialboxed').materialbox();

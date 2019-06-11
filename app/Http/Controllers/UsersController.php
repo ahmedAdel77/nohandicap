@@ -94,7 +94,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'numeric|min:11',
+            'phone' => 'required|numeric|min:11',
         ]);
 
         $user->update($request->all());
@@ -120,16 +120,24 @@ class UsersController extends Controller
      * @return Response
      */
 
-    public function ban($id)
+    public function ban(Request $request,$id)
     {
+        // return $request;
         $user = User::find($id);
-        if ($user->isBanned) {
-            $user->isBanned = 0;
-        } else {
+        if($request["isBanned"]=="on"){
             $user->isBanned = 1;
+        }else{
+            $user->isBanned = 0;
+        }
+        $user->save();
+
+        if ($user->isBanned == 0) {
+            return redirect()->route('users.index')->with('success','UnBanned Successfully..');
+
+        } else {
+            return redirect()->route('users.index')->with('success','Bannned Successfully..');
         }
 
-        return redirect()->route('users.index')->with('success','Ban Successfully..');
     }
 
 

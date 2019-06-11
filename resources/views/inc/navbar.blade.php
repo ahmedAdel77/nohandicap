@@ -1,7 +1,19 @@
-<nav class="nav-wrapper green ">
+<nav class="nav-wrapper green scrollspy" id="up">
         <div class="container">
-          <a href="{{ url('/') }}" class="brand-logo">
-                {{ config('app.name', 'Laravel') }}
+          <a href="{{ url('/') }}" class="brand-logo" style="font-family: ">
+            <div class="">
+                <div class="col">
+                    <img src="{{ asset('logo/nohandicap12.png') }}" alt="" width="170px;">
+                    <span class="right" style="font-weight: lighter; font-size: 20px;">
+                        | Assistive tools ads
+                    </span>
+
+                </div>
+                <div class="col">
+
+                {{-- {{ config('{{ app.name }}', '') }} --}}
+                </div>
+            </div>
           </a>
 
           <a href="" class="sidenav-trigger" target-data="mobile-menu">
@@ -9,6 +21,15 @@
           </a>
 
           <ul class="right hide-on-med-and-down">
+
+
+
+            @if (Auth::guest() || Auth::user()->isAdmin == 0)
+                <li>
+                    <a href="/pages/about" class="">About Us</a>
+                </li>
+            @endif
+
 
                 @guest
                 <li class="nav-item">
@@ -56,7 +77,9 @@
                     </div>
                 </ul>
 
+
                 </li>
+
             @endguest
             @auth
 
@@ -83,6 +106,7 @@
                               <div style="color: black"></div>
                             </div>
                             <a href="#user"><img class="circle" src="{{ asset('Avatar.jpg') }}"></a>
+
                             {{-- <i class="material-icons black-text center">person</i> --}}
 
                             <a href="#name"><span class="black-text name">{{ Auth()->user()->name }}</span></a>
@@ -96,78 +120,10 @@
 
                 </ul>
 
-
                   <a href="#" data-target="slide-out" class=" white-text  sidenav-trigger show-on-large right"><i class="material-icons">menu</i></a>
-
-
 
             @endif
             @endauth
 
 
-      </nav>
-
-      {{-- <nav class="navbar navbar-expand-md navbar-dark  bg-dark navbar-laravel">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-
-                  </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                <a href="/dashboard" class="dropdown-item">Dashboard</a>
-
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
-        </div>
-    </nav> --}}
+</nav>

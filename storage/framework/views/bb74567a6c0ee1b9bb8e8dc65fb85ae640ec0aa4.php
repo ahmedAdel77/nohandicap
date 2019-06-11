@@ -16,7 +16,7 @@
                     <a href="/products/create" class="btn purple lighten-1 btn-small"><span>Post An Ad</span>
                         <i class="material-icons left">add</i></a>
 
-              <h4>Your posted Ads</h4>
+              <h6 style="font-weight: lighter; font-size: 40px;">Your posted Ads</h6>
 
               <?php if(count($products) > 0): ?>
 
@@ -48,10 +48,22 @@
                                 <?php echo method_field("DELETE"); ?>
                                 <?php echo csrf_field(); ?>
 
-                                <button type="submit" class="btn red darken-2">
+                                <a class="waves-effect waves-red red darken-2 btn modal-trigger" href="#modal1">
                                         <span>Delete</span>
                                         <i class="material-icons left">delete</i>
-                                </button>
+                                    </a>
+
+                                    <!-- Modal Structure -->
+                                    <div id="modal1" class="modal">
+                                      <div class="modal-content">
+                                        <h5>Are you sure you want to delete this item ? </h5>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="submit" class="modal-close btn red darken-2 waves-effect">
+                                                <span>Yes, delete it</span>
+                                        </button>
+                                      </div>
+                                    </div>
                             </form>
 
                         </td>

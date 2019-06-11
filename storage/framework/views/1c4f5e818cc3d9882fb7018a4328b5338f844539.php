@@ -44,7 +44,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-    <h3>Edit Ad</h3>
+    <h3 style="font-weight: lighter; font-size: 50px;">Edit Ad</h3>
 
     <form action="<?php echo e(route('products.update', $product->id)); ?>" method="POST" class="container section" enctype="multipart/form-data">
         <?php echo method_field('PUT'); ?>

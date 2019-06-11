@@ -21,7 +21,7 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'filter', 'search']]);
         // $this->middleware('guest', ['only' => ['index', 'show']]);
     }
 
@@ -32,50 +32,45 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
-        $products =  Product::orderBy('created_at', 'desc')->paginate(6)->onEachSide(2);
 
-        // $products =  Product::filter()->paginate(5);
-
-        // $products = Product::where('category', 'Visual Impairment (VI)')->paginate(6)->onEachSide(2);
-
-
-        // if ($request->filled('category')) {
-        //     $products->where('category');
-        // }
-
-        // if ($category = request('category')) {
-
-        //     $products->where('category', $category);
-        // }
-
-        // // $products = $products->get();
-
-
-        // $filters = Product::selectRaw('category, count(*) exist')
-        // ->groupBy('category')
-        // ->orderByRaw('name asc')
-        // ->get()->toArray();
-
+        $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
         return view('products.index',compact('products'));
     }
 
+    // Filter Items
     public function filter(Request $request)
     {
         $category = $request->input('category');
         $price = $request->input('price');
 
         if ($category == 'All' && $price == 'Unlimited') {
-            $products =  Product::orderBy('created_at', 'desc')->paginate(6)->onEachSide(2);
+            $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
         }
         elseif ($category == 'All') {
-            $products =  Product::orderBy('created_at', 'desc')->whereBetween('price', [$price-100, $price])->paginate(6)->onEachSide(2);
+            $products =  Product::orderBy('created_at', 'desc')->whereBetween('price', [$price-100, $price])->paginate(9)->onEachSide(2);
         }
         elseif ($price == 'Unlimited') {
-            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->paginate(6)->onEachSide(2);
+            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->paginate(9)->onEachSide(2);
         }
         else {
-            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->whereBetween('price', [$price-100, $price])->paginate(6)->onEachSide(2);
+            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->whereBetween('price', [$price-100, $price])->paginate(9)->onEachSide(2);
+        }
+
+        return view('products.index',compact('products'));
+    }
+
+    // Search For An Item
+    public function search(Request $request)
+    {
+        $query = $request->input('name');
+
+        if ($query == '') {
+            $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
+
+        } else {
+            $products = Product::OrderBy('created_at', 'desc')->where('name', 'like', '%'.$query.'%')
+                                                            ->orWhere('description', 'like', '%'.$query.'%')
+                                                            ->paginate(6)->onEachSide(2);
         }
 
         return view('products.index',compact('products'));

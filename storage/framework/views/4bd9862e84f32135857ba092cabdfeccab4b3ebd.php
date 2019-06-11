@@ -13,10 +13,10 @@
                         </div>
                     <?php endif; ?>
 
-                    <a href="/profile/show" class="btn-small grey darken-3 waves-effect waves-light"><span>Back</span>
+                    <a href="/profile/show" class="btn-small blue-grey waves-effect waves-light"><span>Back</span>
                         <i class="material-icons left">arrow_back_ios</i></a>
 
-                    <h3>Edit Profile</h3>
+                    <h3 style="font-weight: lighter; font-size: 50px;">Edit Profile</h3>
 
                     <form action="<?php echo e(route('users.update', $user->id)); ?>" method="POST" class="container section">
                         <?php echo method_field('PUT'); ?>
@@ -44,8 +44,6 @@
 
                     </form>
 
-                    <div class="section">
-                    </div>
 
             </div>
         </div>

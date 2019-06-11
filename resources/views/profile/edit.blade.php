@@ -14,10 +14,10 @@
                         </div>
                     @endif
 
-                    <a href="/profile/show" class="btn-small grey darken-3 waves-effect waves-light"><span>Back</span>
+                    <a href="/profile/show" class="btn-small blue-grey waves-effect waves-light"><span>Back</span>
                         <i class="material-icons left">arrow_back_ios</i></a>
 
-                    <h3>Edit Profile</h3>
+                    <h3 style="font-weight: lighter; font-size: 50px;">Edit Profile</h3>
 {{-- {{ route('routeName', ['id'=>1]) }} --}}
                     <form action="{{ route('users.update', $user->id) }}" method="POST" class="container section">
                         @method('PUT')
@@ -45,8 +45,6 @@
 
                     </form>
 
-                    <div class="section">
-                    </div>
 
             </div>
         </div>

@@ -46,20 +46,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button onclick="document.getElementById('banUserForm{{ $user->id }}').submit();" name="isBanned">ban</button>
+                                        {{-- <button onclick="document.getElementById('banUserForm{{ $user->id }}').submit();" name="isBanned">ban</button> --}}
 
-                                        <form id="banUserForm{{ $user->id }}" action="{{ url('users/'.$user->id.'/ban') }}" method="POST" style="display: none;">
+                                        <!-- Switch -->
+                                        <form id="banUserForm{{ $user->id }}" action="{{ url('users/'.$user->id.'/ban') }}" method="POST">
                                             @csrf
-                                        </form>
-                                          <!-- Switch -->
-                                        <div class="switch section">
-                                            <label>
-                                                Unban
-                                                <input type="checkbox" onclick="document.getElementById('banUserForm{{ $user->id }}').submit();" name="isBanned">
+                                            <div class="switch section">
+                                                <label>
+                                                    Unban
+                                                <input {{ $user->isBanned ? "checked" : null }} type="checkbox" onclick="document.getElementById('banUserForm{{ $user->id }}').submit();" name="isBanned">
                                                 <span class="lever"></span>
-                                                Ban
-                                            </label>
-                                        </div>
+                                                    Ban
+                                                </label>
+                                            </div>
+                                        </form>
                                     </td>
 
                                 </tr>

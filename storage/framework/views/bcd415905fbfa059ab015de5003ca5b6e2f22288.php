@@ -1,8 +1,19 @@
-<nav class="nav-wrapper green ">
+<nav class="nav-wrapper green scrollspy" id="up">
         <div class="container">
-          <a href="<?php echo e(url('/')); ?>" class="brand-logo">
-                <?php echo e(config('app.name', 'Laravel')); ?>
+          <a href="<?php echo e(url('/')); ?>" class="brand-logo" style="font-family: ">
+            <div class="">
+                <div class="col">
+                    <img src="<?php echo e(asset('logo/nohandicap12.png')); ?>" alt="" width="170px;">
+                    <span class="right" style="font-weight: lighter; font-size: 20px;">
+                        | Assistive tools ads
+                    </span>
 
+                </div>
+                <div class="col">
+
+                
+                </div>
+            </div>
           </a>
 
           <a href="" class="sidenav-trigger" target-data="mobile-menu">
@@ -10,6 +21,15 @@
           </a>
 
           <ul class="right hide-on-med-and-down">
+
+
+
+            <?php if(Auth::guest() || Auth::user()->isAdmin == 0): ?>
+                <li>
+                    <a href="/pages/about" class="">About Us</a>
+                </li>
+            <?php endif; ?>
+
 
                 <?php if(auth()->guard()->guest()): ?>
                 <li class="nav-item">
@@ -59,7 +79,9 @@
                     </div>
                 </ul>
 
+
                 </li>
+
             <?php endif; ?>
             <?php if(auth()->guard()->check()): ?>
 
@@ -86,6 +108,7 @@
                               <div style="color: black"></div>
                             </div>
                             <a href="#user"><img class="circle" src="<?php echo e(asset('Avatar.jpg')); ?>"></a>
+
                             
 
                             <a href="#name"><span class="black-text name"><?php echo e(Auth()->user()->name); ?></span></a>
@@ -99,16 +122,11 @@
 
                 </ul>
 
-
                   <a href="#" data-target="slide-out" class=" white-text  sidenav-trigger show-on-large right"><i class="material-icons">menu</i></a>
 
-
-
             <?php endif; ?>
             <?php endif; ?>
 
 
-      </nav>
-
-      
+</nav>
 <?php /**PATH C:\xampp\htdocs\nohandicap\resources\views/inc/navbar.blade.php ENDPATH**/ ?>

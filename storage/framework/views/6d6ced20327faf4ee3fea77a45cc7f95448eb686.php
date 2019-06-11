@@ -5,7 +5,7 @@
         <div class="col s12 l6">
           <h5>About Us</h5>
           <ul>
-            <li><a href="#" class="grey-text lighten-3">About nohandicap</a></li>
+            <li><a href="/pages/about" class="grey-text lighten-3">About nohandicap</a></li>
           </ul>
 
         </div>
@@ -15,7 +15,7 @@
           <ul>
             <li><a href="#" class="grey-text lighten-3">FAQ</a></li>
             <li><a href="#" class="grey-text lighten-3">Conract Us</a></li>
-            <li><a href="#" class="grey-text lighten-3">Safety Advice</a></li>
+            <li><a href="/pages/safety" class="grey-text lighten-3">Safety Advice</a></li>
           </ul>
         </div>
       </div>

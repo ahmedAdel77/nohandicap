@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'admin'], function () {
     Route::post('users/{user}/ban', 'UsersController@ban');
 });
+
 Route::get('/', 'ProductsController@index')->name('home');
 Route::get('/products/filter', 'ProductsController@filter');
+Route::get('/products/search', 'ProductsController@search');
 Route::middleware('throttle:60,1')->group(function () {
     Route::post('products/{product}/report', 'ProductsController@report');
 
@@ -52,3 +54,8 @@ Route::get('home', [
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('/pages/about', 'PagesController@about');
+Route::get('/pages/safety', 'PagesController@safety');
+
+

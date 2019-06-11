@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
+@section('extra')
+
+@include('inc.filter')
+@endsection
+
 @section('content')
 
-    <h1>Products</h1>
-
-    <div class=" section">
-        @include('inc.filter')
-    </div>
+    <h3 style="font-weight: lighter; font-size: 50px;">Latest Ads</h3>
 
     <div class="row section">
 
@@ -19,7 +20,7 @@
                   <div class="card-image" class="">
                     <img src="/storage/cover_images/{{ $product->cover_image }}" class="">
                   </div>
-                  <div class="card-content" style="   overflow: hidden;">
+                  <div class="card-content" style="overflow: hidden;">
                     <h1 class="card-title truncate"><a href="/products/{{ $product->id }}">{{ $product->name }}</a></h1>
                     <p class="truncate">{!! $product->description !!}</p>
                   </div>
@@ -33,8 +34,10 @@
         @endforeach
         {{ $products->links() }}
     @else
-        <p>No products found.</p>
+        <p>No products found! .. We are sorry.</p>
     @endif
 </div>
+
+@include('inc.scrollup')
 
 @endsection

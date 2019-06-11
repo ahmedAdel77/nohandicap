@@ -12,14 +12,12 @@
         <?php echo e(session('success')); ?>
 
     </div>
-    <hr>
 <?php endif; ?>
 
 <?php if(session('error')): ?>
     <div class="alert alert-danger red lighten-4 red-text text-darken-4 card-panel">
         <?php echo e(session('error')); ?>
 
-        <hr>
     </div>
 <?php endif; ?>
 <?php /**PATH C:\xampp\htdocs\nohandicap\resources\views/inc/messages.blade.php ENDPATH**/ ?>
