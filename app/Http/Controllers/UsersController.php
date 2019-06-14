@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 //$codeWallDebugTutorial = true;
 
 use App\User;
+use App\Product;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -27,58 +28,6 @@ class UsersController extends Controller
 
         $users = User::all();
         return view('users.index', compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    public function makeAdmin($id)
-    {
-        $user = User::find($id);
-        $user->isAdmin = 1;
-
-        return redirect('/users')->with('success', 'User has been made an Admin');
-
     }
 
     /**
@@ -111,7 +60,16 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $products = Product::all()->where('user_id', $user->id);
+
+        foreach ($products as $product) {
+            $product->delete();
+        }
+
+        $user->delete();
+
+        return redirect()->home()
+                         ->with('success', 'Account Deleted');
     }
 
         /**
@@ -120,10 +78,10 @@ class UsersController extends Controller
      * @return Response
      */
 
-    public function ban(Request $request,$id)
+    public function ban(Request $request, $id)
     {
-        // return $request;
         $user = User::find($id);
+
         if($request["isBanned"]=="on"){
             $user->isBanned = 1;
         }else{
@@ -138,24 +96,6 @@ class UsersController extends Controller
             return redirect()->route('users.index')->with('success','Bannned Successfully..');
         }
 
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function revoke($id)
-    {
-        if(!empty($id)){
-            $user = User::find($id);
-            $user->unban();
-        }
-
-        return redirect()->route('users.index')
-        				->with('success','User Revoke Successfully.');
     }
 
 }

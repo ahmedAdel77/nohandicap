@@ -29,9 +29,4 @@ class DashboardController extends Controller
         $user = User::find($user_id);
         return view('dashboard')->with('products', $user->products);
     }
-
-    public function admin()
-    {
-        return view('admin');
-    }
 }

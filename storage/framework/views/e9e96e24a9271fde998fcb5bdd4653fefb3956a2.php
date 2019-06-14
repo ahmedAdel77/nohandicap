@@ -5,7 +5,7 @@
     <div class="col s12 l6 section" style="width: ;" >
         <div class="center safe">
             <i class="material-icons green-text">info</i>
-            <h5>Safety Tips</h5>
+            <h5 style="font-weight: lighter; font-size: 50px;">Safety Tips</h5>
             <p>1. Only meet in public/crowded places for example metro stations and malls.</p>
             <p>2. Never go alone to meet a buyer/seller, always take someone with you.</p>
             <p>3. Check and inspect the product properly before purchasing it</p>

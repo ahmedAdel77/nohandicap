@@ -84,7 +84,7 @@
     </div>
 
 </div>
-<div class="card-panel" style="background-color: whitesmoke; width: ;">
+<div class="card-panel" style="background-color: whitesmoke; width: ; margin-top:px;">
         <div class=" center panel" style="padding: 5px;">
             <span class="center infostyle" style="font-weight: bolder">By creating an account you will have access to My ads, where you can:</span>
             <ul>
@@ -94,5 +94,7 @@
             </ul>
         </div>
     </div>
+
+    <div class="" style="margin-top: 50px;"></div>
 
 @endsection

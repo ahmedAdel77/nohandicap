@@ -8,7 +8,6 @@
             <div class="card-content">
               <span class="card-title  center">Reports</span>
 
-
               @if (count($reports))
 
               <table class="centered stripped highlight">
@@ -16,7 +15,7 @@
                       <tr>
                           <th>#</th>
                           <th>Report</th>
-                          <th></th>
+                          <th>Reported Since</th>
                           <th></th>
                       </tr>
                     </thead>
@@ -26,12 +25,12 @@
 
                       <tr>
                         <td>{{ ++$key }}</td>
-                        <td><a href="{{ route('reports.show', $report->id) }}">{{ $report->reason }}</a>
+                        <td><a href="{{ route('reports.show', $report->id) }}">{{ $report->reason }}</a></td>
 
-                        </td>
                         <td>
-
+                            {{ $report->created_at->diffForHumans() }}
                         </td>
+
                         <td>
                             <form action="{{ route('reports.destroy', $report->id) }}" method="POST">
                                 @method("DELETE")

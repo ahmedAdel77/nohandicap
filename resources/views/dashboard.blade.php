@@ -34,7 +34,7 @@
                             @foreach ($products as $product)
 
                       <tr>
-                        <td><a href="/products/{{ $product->id }}">   {{ $product->name }}</a>
+                        <td><a href="/products/{{ $product->id }}">{{ $product->name }}</a>
 
                         </td>
                         <td>
@@ -59,8 +59,8 @@
                                       <div class="modal-content">
                                         <h5>Are you sure you want to delete this item ? </h5>
                                       </div>
-                                      <div class="modal-footer">
-                                        <button type="submit" class="modal-close btn red darken-2 waves-effect">
+                                      <div class="modal-footer red darken-1">
+                                        <button type="submit" class="modal-close btn white black-text darken-2 waves-effect">
                                                 <span>Yes, delete it</span>
                                         </button>
                                       </div>

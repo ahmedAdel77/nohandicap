@@ -11,7 +11,7 @@
 
     <div class="row section">
 
-    @if (count($products)>0)
+    @if (isset($products))
         @foreach ($products as $product)
 
             <div class="col s12 m6 l4" style="">

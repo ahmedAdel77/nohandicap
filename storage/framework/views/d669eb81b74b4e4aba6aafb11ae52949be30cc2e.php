@@ -6,7 +6,6 @@
             <div class="card-content">
               <span class="card-title  center">Reports</span>
 
-
               <?php if(count($reports)): ?>
 
               <table class="centered stripped highlight">
@@ -14,7 +13,7 @@
                       <tr>
                           <th>#</th>
                           <th>Report</th>
-                          <th></th>
+                          <th>Reported Since</th>
                           <th></th>
                       </tr>
                     </thead>
@@ -24,12 +23,13 @@
 
                       <tr>
                         <td><?php echo e(++$key); ?></td>
-                        <td><a href="<?php echo e(route('reports.show', $report->id)); ?>"><?php echo e($report->reason); ?></a>
+                        <td><a href="<?php echo e(route('reports.show', $report->id)); ?>"><?php echo e($report->reason); ?></a></td>
 
-                        </td>
                         <td>
+                            <?php echo e($report->created_at->diffForHumans()); ?>
 
                         </td>
+
                         <td>
                             <form action="<?php echo e(route('reports.destroy', $report->id)); ?>" method="POST">
                                 <?php echo method_field("DELETE"); ?>

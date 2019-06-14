@@ -18,7 +18,6 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::get('/', 'ProductsController@index')->name('home');
 Route::get('/products/filter', 'ProductsController@filter');
-Route::get('/products/search', 'ProductsController@search');
 Route::middleware('throttle:60,1')->group(function () {
     Route::post('products/{product}/report', 'ProductsController@report');
 
@@ -39,12 +38,6 @@ Route::get('/admin/showUsers', 'AdminController@showUsers');
 Route::resource('profile', 'ProfileController');
 
 Auth::routes();
-
-// Route::group(['middleware'=>'forbid-banned-user'], function(){
-//     Route::get('users', 'UsersController@index')->name('users.index');
-//     Route::get('userUserRevoke/{id}', array('as'=> 'users.revoke', 'uses' => 'UsersController@revoke'));
-//     Route::post('userBan', array('as'=> 'users.ban', 'uses' => 'UsersController@ban'));
-// });
 
 Route::get('home', [
     'uses' => 'ProfileController@index',

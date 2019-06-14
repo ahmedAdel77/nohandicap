@@ -11,7 +11,7 @@
 
     <br>
 
-    <span style="font-weight: bolder" class="infostyle">Disclaimer :</span>
+    <span style="font-weight: bolder" class="">Disclaimer :</span>
     <br>
     <br>
     <span class="section">

@@ -12,7 +12,6 @@
             <div class="row">
                 <div class="col s6 l6">
                     <h3 class="" style=""><?php echo e($product->name); ?></h3>
-
                 </div>
                 <div class="col s6 l6 right-align">
                     <h5 class="price" style="font-weight: 500; font-size: 30px;"><?php echo e($product->price); ?> EGP</h5>
@@ -32,9 +31,9 @@
                                 <img src="/storage/cover_images/<?php echo e($product->cover_image); ?>" style="width:100%" class="materialboxed">
                             </li>
                         <?php $__currentLoopData = json_decode($product->product_image, true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li>
+                            <li>
                                 <img src="/storage/product_images/<?php echo e($image); ?>" style="width:100%; height: 100%; " class="materialboxed">
-                        </li>
+                            </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
@@ -83,11 +82,11 @@
 
                                 <!-- Modal Structure -->
                                 <div id="modal1" class="modal">
-                                  <div class="modal-content">
+                                  <div class="modal-content center">
                                     <h5>Are you sure you want to delete this item ? </h5>
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="submit" class="modal-close btn red darken-2 waves-effect">
+                                  <div class="modal-footer red darken-1">
+                                    <button type="submit" class="modal-close btn white black-text darken-2 waves-effect">
                                             <span>Yes, delete it</span>
                                     </button>
                                   </div>
@@ -130,10 +129,12 @@
                                         <label for="textarea">More information</label>
                                     </div>
 
-                                    <button  type="submit" class="btn red darken-2 waves-effect waves-dark">
-                                        <span>Send report</span>
-                                        <i class="material-icons left">send</i>
-                                    </button>
+                                    <div class="center">
+                                        <button  type="submit" class="btn red darken-2 waves-effect waves-dark">
+                                            <span>Send report</span>
+                                            <i class="material-icons left">send</i>
+                                        </button>
+                                    </div>
 
                                 </form>
 
@@ -147,10 +148,21 @@
 
         <div class="row">
 
-            <div class="col s12 l6" style="padding: 30px;">
+            <div class="col s12 l12" style="width: ;">
+                <div class="center safe">
+                    <i class="material-icons green-text">info</i>
+                    <h5 style="font-weight: lighter; font-size: 40px;">Safety Tips</h5>
+                    <p>1. Only meet in public/crowded places for example metro stations and malls.</p>
+                    <p>2. Never go alone to meet a buyer/seller, always take someone with you.</p>
+                    <p>3. Check and inspect the product properly before purchasing it</p>
+                    <p>4. Never pay anything in advance or transfer money before inspecting the product</p>
+                </div>
+            </div>
+
+            <div class="col s12 l12" style="margin-top: 20px;margin-bottom: 40px;">
                 <ul class="collection with-header">
                     <li class="collection-header center">
-                        <h4>Seller Info.</h4>
+                        <h4 style="font-weight: lighter; font-size: 40px;">Seller Info.</h4>
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">person</i>
@@ -170,16 +182,6 @@
                 </ul>
             </div>
 
-            <div class="col s12 l6" style="width: ;">
-                <div class="center safe">
-                    <i class="material-icons green-text">info</i>
-                    <h5>Safety Tips</h5>
-                    <p>1. Only meet in public/crowded places for example metro stations and malls.</p>
-                    <p>2. Never go alone to meet a buyer/seller, always take someone with you.</p>
-                    <p>3. Check and inspect the product properly before purchasing it</p>
-                    <p>4. Never pay anything in advance or transfer money before inspecting the product</p>
-                </div>
-            </div>
 
         </div>
 

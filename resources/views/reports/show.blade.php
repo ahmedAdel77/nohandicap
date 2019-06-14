@@ -18,7 +18,7 @@
             <p>{{ $report->info }}</p>
         </div>
         <div class="col l6">
-            <h5 class="infostyle">Product Reported</h5>
+            <h5 class="infostyle" style="margin-bottom: 20px;">Product Reported</h5>
 
             <div class="card horizontal">
               <div class="card-image">

@@ -101,11 +101,29 @@ html{
       padding-left: 300px;
     }
 
-    @media  only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
-    } */
+@media  only screen and (max-width : 992px) {
+    header, main, footer {
+    padding-left: 0;
+    }
+} */
+
+/* .sidenav{
+    top: 65px;
+    left: 50px;
+    height: 500px;
+    width: 200px;
+
+} */
+
+.filterpanel{
+    border-radius: 5px;
+    position: relative;
+    top: 100px;
+    left: 20px;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+}
 
 
 </style>
@@ -115,18 +133,24 @@ html{
 <body>
 
 
+
     <div id="app">
 
-        <main class="">
+
             <?php echo $__env->make('inc.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            <?php echo $__env->yieldContent('extra'); ?>
+
+            <aside>
+                    <?php echo $__env->yieldContent('extra'); ?>
+            </aside>
 
             <div class="container">
+                <main>
                 <?php echo $__env->make('inc.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            <?php echo $__env->yieldContent('content'); ?>
+                <?php echo $__env->yieldContent('content'); ?>
+            </main>
 
             </div>
-        </main>
+
     </div>
 
     <?php echo $__env->make('inc.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

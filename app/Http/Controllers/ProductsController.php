@@ -21,8 +21,7 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'filter', 'search']]);
-        // $this->middleware('guest', ['only' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'filter', 'search', 'report', 'userPostedAds']]);
     }
 
     /**
@@ -30,50 +29,52 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
-        return view('products.index',compact('products'));
+        $products->min("price");
+        return view('products.index',[
+            'products'=>$products,
+            "min"=>$products->min("price"),
+            "max"=>$products->max("price"),
+        ]);
     }
 
-    // Filter Items
+    // Filter and Search for Items
     public function filter(Request $request)
     {
+        // return $request;
+        $search = $request->input("search");
         $category = $request->input('category');
-        $price = $request->input('price');
+        $min = $request->input("min");
+        $max = $request->input("max");
 
-        if ($category == 'All' && $price == 'Unlimited') {
-            $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
+        $products = Product::latest();
+
+        if(isset($search)){
+            $products->where(function ($query) use($search) {
+                $query->where('name', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%');
+            });
         }
-        elseif ($category == 'All') {
-            $products =  Product::orderBy('created_at', 'desc')->whereBetween('price', [$price-100, $price])->paginate(9)->onEachSide(2);
+        if(isset($min)){
+            $products->where('price', '>=' ,$min);
         }
-        elseif ($price == 'Unlimited') {
-            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->paginate(9)->onEachSide(2);
+        if(isset($max)){
+            $products->where('price', '<=' ,$max);
         }
-        else {
-            $products =  Product::orderBy('created_at', 'desc')->where('category', $category)->whereBetween('price', [$price-100, $price])->paginate(9)->onEachSide(2);
+        if ($category != 'All') {
+            $products->where('category', $category);
         }
+        $products= $products->paginate(9);
 
-        return view('products.index',compact('products'));
-    }
-
-    // Search For An Item
-    public function search(Request $request)
-    {
-        $query = $request->input('name');
-
-        if ($query == '') {
-            $products =  Product::orderBy('created_at', 'desc')->paginate(9)->onEachSide(2);
-
-        } else {
-            $products = Product::OrderBy('created_at', 'desc')->where('name', 'like', '%'.$query.'%')
-                                                            ->orWhere('description', 'like', '%'.$query.'%')
-                                                            ->paginate(6)->onEachSide(2);
-        }
-
-        return view('products.index',compact('products'));
+        return view('products.index',[
+            "products"=>$products,
+            "min"=> $min ?? $products->min("price"),
+            "max"=> $max ?? $products->max("price"),
+            "search"=> $search,
+        ]);
     }
 
     /**
@@ -155,7 +156,7 @@ class ProductsController extends Controller
 
         $product->save();
 
-        return redirect('/products')->with('success', 'Product Posted');
+        return redirect('/')->with('success', 'Product Posted');
     }
 
     /**
@@ -166,12 +167,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        //
-        // $product = Product::find($id);
-
         views($product)->record();
-
-        // return view('products.show')->with('product', $product);
         return view('products.show', compact('product'));
 
     }
@@ -295,16 +291,16 @@ class ProductsController extends Controller
         }
 
         $product->delete();
-        return redirect('/products')->with('success', 'Product Removed');
+        return redirect('/')->with('success', 'Product Removed');
 
     }
 
-
-
+    // Report Product
     public function report(Request $request, Product $product)
     {
-        // $request->validate([])
-        // Report::create($request->all());
+        $request->validate([
+            'reason' => 'required',
+        ]);
 
         $report = new Report;
         $report->reason = $request->input('reason');

@@ -33,50 +33,6 @@ class ReportsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'reason' => 'required',
-            'info' => 'nullable'
-        ]);
-
-
-        $product = new Product;
-        $report = new Report;
-
-        $report->reason = $request->input('reason');
-        $report->info = $request->input('info');
-        $report->product_id = $product->id;
-
-        $report->product()->associate($product)->save();
-        $report->save();
-
-
-        // Report::create(['reason' => $request->reason, 'info' => $request->info, 'product_id' => $product->id]);
-
-        // Report::create($request->all());
-
-
-        return redirect()->route('home')->with('sucess' ,'Report Sent Successfully');
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Report  $report
@@ -85,29 +41,6 @@ class ReportsController extends Controller
     public function show(Report $report)
     {
         return view('reports.show', compact('report'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Report $report)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Report $report)
-    {
-        //
     }
 
     /**

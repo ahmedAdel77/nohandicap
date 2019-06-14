@@ -18,7 +18,6 @@
                         <i class="material-icons left">arrow_back_ios</i></a>
 
                     <h3 style="font-weight: lighter; font-size: 50px;">Edit Profile</h3>
-{{-- {{ route('routeName', ['id'=>1]) }} --}}
                     <form action="{{ route('users.update', $user->id) }}" method="POST" class="container section">
                         @method('PUT')
                      @csrf
@@ -36,7 +35,7 @@
                                <label for="phone">Phone Number</label>
                         </div>
 
-                         <div class="section">
+                         <div class="section center">
                                 <button type="submit" class="btn purple darken-2 waves-effect waves-light">
                                         <span>Edit</span>
                                         <i class="material-icons left">done</i>
@@ -44,7 +43,6 @@
                          </div>
 
                     </form>
-
 
             </div>
         </div>

@@ -9,7 +9,7 @@
 
     <div class="row section">
 
-    <?php if(count($products)>0): ?>
+    <?php if(isset($products)): ?>
         <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
             <div class="col s12 m6 l4" style="">

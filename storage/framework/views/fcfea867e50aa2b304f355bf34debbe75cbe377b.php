@@ -117,7 +117,7 @@
                 <label for="price">Price</label>
          </div>
 
-         <div class="section">
+         <div class="section center">
                 <button type="submit" class="btn purple darken-2 waves-effect waves-light">
                         <span>Post</span>
                         <i class="material-icons left">add</i>

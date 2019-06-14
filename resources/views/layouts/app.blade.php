@@ -101,11 +101,29 @@ html{
       padding-left: 300px;
     }
 
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
-    } */
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+    padding-left: 0;
+    }
+} */
+
+/* .sidenav{
+    top: 65px;
+    left: 50px;
+    height: 500px;
+    width: 200px;
+
+} */
+
+.filterpanel{
+    border-radius: 5px;
+    position: relative;
+    top: 100px;
+    left: 20px;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+}
 
 
 </style>
@@ -115,18 +133,24 @@ html{
 <body>
 
 
+
     <div id="app">
 
-        <main class="">
+
             @include('inc.navbar')
-            @yield('extra')
+
+            <aside>
+                    @yield('extra')
+            </aside>
 
             <div class="container">
+                <main>
                 @include('inc.messages')
-            @yield('content')
+                @yield('content')
+            </main>
 
             </div>
-        </main>
+
     </div>
 
     @include('inc.footer')
