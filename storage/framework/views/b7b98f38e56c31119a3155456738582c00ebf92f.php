@@ -49,8 +49,10 @@
                 </div>
                 <div class="col s6 l6">
                     <h5 class="infostyle">Description</h5>
-                    <?php echo $product->description; ?>
+                    <?php echo nl2br(str_replace(" ", " &nbsp;", $product->description)); ?>
 
+                    
+                    
                 </div>
             </div>
 

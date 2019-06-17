@@ -21,6 +21,7 @@
                             <option class="option" value="All" selected>All</option>
                             <option class="option" value="Mobility">Mobility</option>
                             <option class="option" value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                            <option value="Artificial Limbs" value="Artificial Limbs">Artificial Limbs</option>
                             <option class="option" value="Visual Impairment (VI)">Visual Impairment (VI)</option>
                         </select>
                         <label for="catID">Category</label>

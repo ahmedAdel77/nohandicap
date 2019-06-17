@@ -9,7 +9,7 @@
 
     <div class="row section">
 
-    <?php if(isset($products)): ?>
+    <?php if(count($products)): ?>
         <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
             <div class="col s12 m6 l4" style="">
@@ -33,7 +33,7 @@
         <?php echo e($products->links()); ?>
 
     <?php else: ?>
-        <p>No products found! .. We are sorry.</p>
+        <p style="color: maroon">No products found! .. We are sorry.</p>
     <?php endif; ?>
 </div>
 

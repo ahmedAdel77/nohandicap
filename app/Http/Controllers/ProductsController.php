@@ -143,7 +143,7 @@ class ProductsController extends Controller
         if ($request->hasFile('product_image')) {
 
             foreach ($request->file('product_image') as $image) {
-                $name = $image->getClientOriginalName();
+                $name = $image->getClientOriginalName().'_'.time().'.'.$image->getClientOriginalExtension();
                 // $image->move('Public/product_images', $name);
                 $image->storePubliclyAs('public/product_images/',$name);
                 // $path2 = $request->file('product_image')->storeAs('Public/product_images', $name);
@@ -251,7 +251,7 @@ class ProductsController extends Controller
         if ($request->hasFile('product_image')) {
 
             foreach ($request->file('product_image') as $image) {
-                $name = $image->getClientOriginalName();
+                $name = $image->getClientOriginalName().'_'.time().'.'.$image->getClientOriginalExtension();
                 // $image->move('Public/product_images', $name);
                 $image->storePubliclyAs('public/product_images/',$name);
                 // $path2 = $request->file('product_image')->storeAs('Public/product_images', $name);

@@ -63,21 +63,31 @@
                     <option value="" disabled>Choose your category</option>
                     <option value="Mobility" selected>Mobility</option>
                     <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Artificial Limbs">Artificial Limbs</option>
                     <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
                 @elseif($product->category == "Hearing Impairment (HI)")
                     <option value="" disabled>Choose your category</option>
                     <option value="Mobility">Mobility</option>
                     <option value="Hearing Impairment (HI)" selected>Hearing Impairment (HI)</option>
+                    <option value="Artificial Limbs">Artificial Limbs</option>
+                    <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
+                @elseif($product->category == "Artificial Limbs")
+                    <option value="" disabled>Choose your category</option>
+                    <option value="Mobility">Mobility</option>
+                    <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Artificial Limbs" selected>Artificial Limbs</option>
                     <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
                 @elseif($product->category == "Visual Impairment (VI)")
                     <option value="" disabled>Choose your category</option>
                     <option value="Mobility">Mobility</option>
                     <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Artificial Limbs">Artificial Limbs</option>
                     <option value="Visual Impairment (VI)" selected>Visual Impairment (VI)</option>
                 @else
                     <option value="" disabled selected>Choose your category</option>
                     <option value="Mobility">Mobility</option>
                     <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                    <option value="Artificial Limbs">Artificial Limbs</option>
                     <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
                 @endif
 

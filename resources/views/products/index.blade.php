@@ -11,7 +11,7 @@
 
     <div class="row section">
 
-    @if (isset($products))
+    @if (count($products))
         @foreach ($products as $product)
 
             <div class="col s12 m6 l4" style="">
@@ -34,7 +34,7 @@
         @endforeach
         {{ $products->links() }}
     @else
-        <p>No products found! .. We are sorry.</p>
+        <p style="color: maroon">No products found! .. We are sorry.</p>
     @endif
 </div>
 

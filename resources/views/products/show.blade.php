@@ -54,7 +54,9 @@
                 </div>
                 <div class="col s6 l6">
                     <h5 class="infostyle">Description</h5>
-                    {!! $product->description !!}
+                    {!!nl2br(str_replace(" ", " &nbsp;", $product->description))!!}
+                    {{-- {!! nl2br( e($product->$description))!!} --}}
+                    {{-- {!! $product->description !!} --}}
                 </div>
             </div>
 

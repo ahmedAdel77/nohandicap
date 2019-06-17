@@ -59,6 +59,7 @@
                 <option value="" disabled selected>Choose your category</option>
                 <option value="Mobility">Mobility</option>
                 <option value="Hearing Impairment (HI)">Hearing Impairment (HI)</option>
+                <option value="Artificial Limbs">Artificial Limbs</option>
                 <option value="Visual Impairment (VI)">Visual Impairment (VI)</option>
             </select>
             <label for="">Category</label>
